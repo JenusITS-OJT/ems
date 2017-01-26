@@ -63,38 +63,179 @@ $userid=$_SESSION['session']['userid'];
       <!--CONTENT HERE!-->
       <div class="row">
 
-        <div class="col-md-6">
-          <div class="box box-solid">
+        <div class="col-md-4">
+
+          <h1 align="center">
+            <?php $time = date("g:i A");
+            echo $time;
+            ?>
+          </h1>
+          <h3 align="center">            
+            <?php $today = date("l, F j, Y");
+            echo $today;
+
+            /*$result = mysqli_query($con, "SELECT `ID` FROM `time` WHERE `User_ID` = '$userid' AND DATE(`Time_In`) = CURDATE() ORDER BY `Time_In` DESC LIMIT 1");
+            $row = mysqli_fetch_array($result);
+            $id = $row[0];*/
+
+            $result = mysqli_query($con, "SELECT `Time_In`, `Break_In`, `Break_Out`, `Time_Out`, `ID` FROM `time` WHERE `User_ID` = '$userid' AND DATE(`Time_In`) = CURDATE() ORDER BY `Time_In` DESC LIMIT 1");
+
+            $yes = mysqli_num_rows($result);
+            if($yes >= 1){            
+              while($row = mysqli_fetch_array($result)){
+                  $timein = $row[0];
+                  $breakin = $row[1];
+                  $breakout = $row[2];
+                  $timeout = $row[3];
+                  $id = $row[4];
+                }
+
+                if(empty($id) && $timein == '0000-00-00 00:00:00')
+                  $stat = 'Time-In';
+
+                if(!empty($id) && $breakin == '0000-00-00 00:00:00')
+                  $stat = 'Start Lunch Break';
+
+                if(!empty($id)  && $breakin != '0000-00-00 00:00:00' && $breakout == '0000-00-00 00:00:00')
+                  $stat = 'End Lunch Break';
+
+                if(!empty($id)  && $breakin != '0000-00-00 00:00:00' && $breakout != '0000-00-00 00:00:00' && $timeout == '0000-00-00 00:00:00')
+                  $stat = 'Time-Out';
+
+                if(!empty($id)  && $breakin != '0000-00-00 00:00:00' && $breakout != '0000-00-00 00:00:00' && $timeout != '0000-00-00 00:00:00')
+                  $stat = 'Time-In';
+              }
+            else
+              $stat = 'Time-In';
+              /*$id = 0;*/
+
+
+            ?>            
+          </h3>
+          <center>
+                    <form action="_Time.php?userid=<?php echo $_GET['userid'];?>&id=<?php echo $_GET['id'];?>" method="get">
+                      <button type="submit" class="btn btn-success btn-flat"  value="Start-Lunch">
+                        <i class="fa fa-clock-o"></i>&nbsp;&nbsp;<?php echo $stat; ?>
+                      </button>
+                      <input type="hidden" name="id" value="<?php echo $id; ?>"/>
+                      <input type="hidden" name="userid" value="<?php echo $userid; ?>">
+                    </form>
+          </center>
+                  
+        </div>
+        <div class="col-md-8">
+          <div class="box box-warning">
             <div class="box-header with-border">
-              <h3 class="box-title text-blue" >Welcome!</h3>
+              <h3 class="box-title text-blue">Your Time Record, <b><?php $today = date("l F j, Y");
+              echo $today; ?></b></h3>      
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                  <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                  <li data-target="#carousel-example-generic" data-slide-to="1" class="active"></li>
-                  <li data-target="#carousel-example-generic" data-slide-to="2" class="active"></li>
-                </ol>
-                <div class="carousel-inner">
-                  <div class="item active">
-                    <img src="dist/img/2.png" alt="First slide">
-                  </div>
+                <div class="table-responsive" style="overflow-x:auto;">
+                  <?php
+                      $result = mysqli_query($con, "SELECT DATE_FORMAT(`Time_In`,'%r'),
+                          DATE_FORMAT(`Break_In`,'%r'),
+                          DATE_FORMAT(`Break_Out`,'%r'),
+                          DATE_FORMAT(`Time_Out`,'%r'),
+                          `ID` 
+                          FROM `time` 
+                          WHERE `User_ID` = '$userid' AND DATE(`Time_In`) = CURDATE() 
+                          ORDER BY `Time_In` DESC 
+                          LIMIT 1");
+                      $yes = mysqli_num_rows($result);
+
+                      if($yes >= 1){
+                    ?>
+                  <table id = "myTable"class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                      <th>Time-In</th>
+                        <th>Break-In</th>
+                        <th>Break-Out</th>
+                        <th>Time-Out</th>
+                    </tr>
+                    </thead>
+                    
+                    <tbody>
+                      <?php
+                        while($row = mysqli_fetch_array($result)){
+                      ?>
+                      <tr>                        
+                        <td>
+                          <?php
+
+                            $timeid = $row[4];
+
+                            if($row[0] != '12:00:00 AM')
+                            {
+                              echo $row[0];
+                            }
+                            else
+                            {
+                              echo "...";
+                            }
+                          ?>
+                        </td>
+                        <td>
+                          <?php
+                            if($row[1] != '12:00:00 AM')
+                            {
+                              echo $row[1];
+                            }
+                            else
+                            {
+                              echo "...";
+                            }
+                          ?>
+                        </td>
+                        <td>
+                          <?php
+                            if($row[2] != '12:00:00 AM')
+                            {
+                              echo $row[2];
+                            }
+                            else
+                            {
+                              echo "...";
+                            }
+                          ?>
+                        </td>
+                        <td>
+                          <?php
+                            if($row[3] != '12:00:00 AM')
+                            {
+                              echo $row[3];
+                            }
+                            else
+                            {
+                              echo "...";
+                            }
+                          }?>
+                        </td>
+                      </tr>
+                    <?php
+                }
+                else
+                {
+                  echo '<center><h1>Please Time In First.</h1>';
+                }
+                 ?>
+                    </tbody>
+                  </table>
                 </div>
-              </div>
-            <!-- /.box-body -->
+                <!-- /.table-responsive -->
             </div>
-          <!-- /.box -->
+            <!-- /.box-body -->              
           </div>
         </div>
         <!-- ./ end of div row-->
 
 
-        <div class="col-md-6">
+        <div class="col-md-12">
             <!-- TABLE: LATEST ORDERS -->
             <div class="box box-warning">
               <div class="box-header with-border">
-                <h3 class="box-title text-blue">Your Logs</h3>
+                <h3 class="box-title text-blue">System Logs</h3>
                 <div class="box-tools pull-right">
                   <button type="button" class="btn btn-box-tool" data-widget="collapse">
                     <i class="fa fa-minus"></i>

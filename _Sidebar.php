@@ -65,6 +65,13 @@ require ('_Connection.php');
           </ul>
         </li>
 
+          <li class="treeview">
+          <a href="Q_Log.php">
+            <i class="fa fa-tasks"></i>
+            <span>Log Queries</span>
+          </a>
+        </li>
+
         <li class="treeview">
           <a href="R_Reports.php">
             <i class="fa fa-newspaper-o"></i>
