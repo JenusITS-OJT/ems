@@ -10,6 +10,19 @@ require ("_Connection.php");
 //Add
 
 if(empty($id)){
+    $sql1 = "SELECT `Dept_Name` from `department` where `Dept_Name` like '%$department%';";
+        $result = mysqli_query($con, $sql1);
+        $num = mysqli_num_rows($result);
+         if($num != 0)
+         {
+            $msg = "Error";
+            echo '<script type="text/javascript">';
+            echo 'alert("Input already exists!")';
+            echo '</script>';
+            header("Location: CM_Department4.php?id=failed&msg=$msg");
+         }
+         else
+            {
     $msg = "Added";
     $sql="INSERT INTO `department`
             (
@@ -23,6 +36,7 @@ if(empty($id)){
         $stm = mysqli_query($con, $sql);
         myResponse($stm,$msg);
                  }
+             }
 
 if(!empty($id)){
         $msg = "Updated";
@@ -40,12 +54,12 @@ function myResponse($stm, $msg){
             if($stm)
             {   
                 $msg .= " SUCCESSFULLY!";
-                header("Location: CM_Department.php?id=success&msg=$msg");
+                header("Location: CM_Department3.php?id=success&msg=$msg");
             }
             else
             {
                 $msg .= " FAILED!";
-                header("Location: CM_Department.php?id=success&msg=$msg");
+                header("Location: CM_Department4.php?id=success&msg=$msg");
             }  
 }
 

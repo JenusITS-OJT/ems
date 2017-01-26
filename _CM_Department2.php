@@ -21,12 +21,12 @@ function myResponse($stm, $msg){
             if($stm)
             {   
                 $msg .= " SUCCESSFULLY!";
-                header("Location: CM_Department.php?id=success&msg=$msg");
+                header("Location: CM_Department3.php?id=success&msg=$msg");
             }
             else
             {
                 $msg .= " FAILED!";
-                header("Location: CM_Department.php?id=failed&msg=$msg");
+                header("Location: CM_Department4.php?id=failed&msg=$msg");
             }  
 }
 

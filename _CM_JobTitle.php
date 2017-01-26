@@ -13,6 +13,19 @@ require ("_Connection.php");
 //Add
 
 if(empty($id)){
+  $sql1 = "SELECT `Job_Title` from `job` where `Job_Title` like '%$jobtitle%' or `Code` = '$jobcode';";
+        $result = mysqli_query($con, $sql1);
+        $num = mysqli_num_rows($result);
+         if($num != 0)
+         {
+            $msg = "Error";
+            echo '<script type="text/javascript">';
+            echo 'alert("Input already exists!")';
+            echo '</script>';
+            header("Location: CM_JobTitle4.php?id=failed&msg=$msg");
+         }
+         else
+            {
     $msg = "Added";
     $sql="INSERT INTO `job`
             (
@@ -30,6 +43,7 @@ if(empty($id)){
         $stm = mysqli_query($con, $sql);
         myResponse($stm,$msg);
                  }
+               }
 
 if(!empty($id)){
         $msg = "Updated";
@@ -49,12 +63,12 @@ function myResponse($stm, $msg){
             if($stm)
             {   
                 $msg .= " SUCCESSFULLY!";
-                header("Location: CM_JobTitle.php?id=success&msg=$msg");
+                header("Location: CM_JobTitle3.php?id=success&msg=$msg");
             }
             else
             {
                 $msg .= " FAILED!";
-                header("Location: CM_JobTitle.php?id=failed&msg=$msg");
+                header("Location: CM_JobTitle4.php?id=failed&msg=$msg");
             }  
 }
 
