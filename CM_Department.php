@@ -89,10 +89,10 @@
                 <div class="form-group">
                   <label for="exampleInputEmail1">Status</label>
                   <select class="form-control" id="status" name="status" placeholder="Status" required>
-                    <?php $sql="SELECT
+                   <?php $sql="SELECT
                                   s.`ID`, 
                                   s.`Status_Name`
-                                  FROM `status` as s;";
+                                  FROM `status` as s where s.`id` = '1' or s.`id` = '8'";
                                   $result = mysqli_query($con, $sql);
                                   while($row = mysqli_fetch_array($result)){
                                 ?>

@@ -18,7 +18,7 @@ if($npw == $rnpw){
                  $sql= "UPDATE `employee` SET `username` = '$username', `password` = '$pass1' WHERE `user_id` = '$userid'";
                     $result = mysqli_query($con, $sql);
                    
-                    header("Location: Employee_User_Account.php?id=".$userid);
+                    header("Location: Employee_User_Account1.php?id=".$userid);
               }
 
          else

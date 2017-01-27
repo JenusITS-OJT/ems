@@ -122,7 +122,7 @@ if (isset($_GET['id']))
                   <select class="form-control" id="pos" name="pos" required>
                     <?php $sql="SELECT `id`,
                                   `job_title`
-                                  FROM `job`;";
+                                  FROM `job` where `status` = 1 order by `job_title` ;";
                                   $result = mysqli_query($con, $sql);
                                   while($row = mysqli_fetch_array($result)){
                                 ?>
@@ -145,7 +145,7 @@ if (isset($_GET['id']))
                   <select class="form-control" id="des" name="des" required>
                     <?php $sql="SELECT `id`,
                                   `address`
-                                  FROM `branch`;";
+                                  FROM `branch`  where `status` = 1 order by `address`;";
                                   $result = mysqli_query($con, $sql);
                                   while($row = mysqli_fetch_array($result)){
                                 ?>

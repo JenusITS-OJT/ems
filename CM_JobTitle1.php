@@ -128,7 +128,7 @@ if (isset($_GET['id']))
                                     d.`ID`, 
                                     d.`Dept_Name`
                                     FROM `department` as d
-                                    WHERE d.`Status` = 1 and d.`ID` != $deptid ;";
+                                    WHERE d.`Status` = 1 and d.`ID` != $deptid order by d.`Dept_Name`;";
                                     $result = mysqli_query($con, $sql);
                                     ?>
 

@@ -98,7 +98,7 @@
                                     d.`ID`, 
                                     d.`Dept_Name`
                                     FROM `department` as d
-                                    WHERE d.`Status` = 1;";
+                                    WHERE d.`Status` = 1 order by d.`Dept_Name`;";
                                     $result = mysqli_query($con, $sql);
                                     while($row = mysqli_fetch_array($result)){
                                   ?>

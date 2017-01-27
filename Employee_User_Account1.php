@@ -1,6 +1,10 @@
+
 <!DOCTYPE html>
 <html>
-<?php require('_Connection.php'); ?>
+<?php require('_Connection.php');
+
+
+   ?>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,7 +39,7 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <?php require('_Header.php');?>
-<?php require('_Sidebar.php');?>
+<?php require('_Sidebar_.php');?>
   <div class="wrapper">
   <!-- Content Wrapper. Contains page content -->
 
@@ -60,7 +64,11 @@
  
  <section class="content">
         <!-- SELECT2 EXAMPLE -->
-        <?php require('Successful.php');?>
+
+  <?php require('Successful.php');?>
+        
+
+      <form action="_C_EmpConfig.php" method="get">
 
           <?php
 
@@ -81,8 +89,7 @@
                 <h3 class="box-title">Update Account</h3>
               </div>
 
-        <form action="_C_UserConfig.php" method="get">
-            <div class="box-body">
+            <div class="box-body"> 
               <div class="col-md-12">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Username</label>
@@ -105,20 +112,15 @@
                    <input class="form-control" type="password" name="rnpw" id ="rnpw" placeholder="Repeat New Password" required>
             </div>
             </div>
-
-
-
-            </div>
-             <div class="box-footer" align="right">
-                <input type="hidden" name="id" value="<?php echo $userid; ?>"/>
-               <button type="submit" class="btn btn-primary">Update Account</button>
-               <button type="reset" class="btn btn-default">Clear Fields</button>
             </div>
 
             
+             <div class="box-footer" align="right">
+            <input type="hidden" name="id" value="<?php echo $userid; ?>"/>
+           <button type="submit" class="btn btn-primary">Update Account</button>
+           <button type="reset" class="btn btn-default">Clear Fields</button>
           </form>
-            </div>
-
+        </div>          
       
              <!-- END BASIC TABLE -->
 

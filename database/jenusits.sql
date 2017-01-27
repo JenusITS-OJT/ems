@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 23, 2016 at 03:25 AM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 5.6.28
+-- Generation Time: Jan 26, 2017 at 03:27 AM
+-- Server version: 10.1.13-MariaDB
+-- PHP Version: 5.6.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -280,9 +280,7 @@ CREATE TABLE `branch` (
 
 INSERT INTO `branch` (`id`, `Address`, `Contact_No`, `Email`, `Date_Established`, `Status`) VALUES
 (6, 'Commonwealth Quezon City', '2272827', 'jenus@yahoo.com', '2010-09-12', 1),
-(7, 'Jocfer Bldg. Comm.Ave', '287-0994', 'info@jenusitsolution', '2010-05-09', 2),
-(8, 'Caloocan City', '781-4276', 'jenus@yahoo.com', '2015-10-01', 2),
-(9, 'Maharlika Village, Taguig City', '09000000000', 'emp@yahoo.com', '0000-00-00', 1);
+(7, 'Jocfer Bldg. Comm.Ave', '287-0994', 'info@jenusitsolution', '2010-05-09', 2);
 
 -- --------------------------------------------------------
 
@@ -304,8 +302,7 @@ CREATE TABLE `department` (
 INSERT INTO `department` (`id`, `Dept_Name`, `Functions`, `Status`) VALUES
 (1, 'Human Resource (HR) Department', 'Recruitment and selection.', 1),
 (2, 'Information Technology', 'Information Technology', 1),
-(3, 'Finance', 'Financing', 1),
-(4, 'Production', 'Producing goods', 1);
+(3, 'Finance', 'Financing', 1);
 
 -- --------------------------------------------------------
 
@@ -375,11 +372,7 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`User_ID`, `ID`, `First_Name`, `Middle_Name`, `Last_Name`, `Extension_Name`, `Gender`, `Birthday`, `Street`, `City`, `State`, `Country`, `ZIPCode`, `Contact_No`, `Email`, `Civil_Status`, `Citizenship`, `Date_Hired`, `SSS`, `GSIS`, `TIN`, `PhilHealth`, `Pagibig`, `Username`, `Password`, `Status_ID`, `JobTitle_ID`, `Branch_ID`, `Dept_ID`, `Profile_Pic`, `Date_Acct_Created`) VALUES
-(31, '', 'jj', '', 'jj', '', b'0', '0000-00-00', '', '', '', '', '', '639850938450', 'e@y.c', '', '', NULL, '', '', '', '', '', 'jebelyn123', 'jebs', NULL, 1, NULL, NULL, 'Uploads\\avatar0.png', '0000-00-00 00:00:00'),
-(32, '', 'j', '', 'j', '', b'0', '0000-00-00', '', '', '', '', '', '639283938834', 'j@y.c', '', '', NULL, '', '', '', '', '', 'l', 'k', NULL, 1, NULL, NULL, 'Uploads\\avatar0.png', '2016-12-12 00:00:00'),
-(33, '', 'LG', '', 'Cam', '', b'0', '0000-00-00', '', '', '', '', '', '639362544920', 'lg@g.c', '', '', NULL, '', '', '', '', '', '', 'fBiPNEiIRsUF/aOogo1ImJ04WFTXpilP8dGYE3wysTg=', NULL, 1, NULL, NULL, 'Uploads\\avatar0.png', '2016-12-25 00:00:00'),
-(34, '', 'benny', '', 'park', '', b'0', '0000-00-00', '', '', '', '', '', '639245132584', 'benny@g.com', '', '', NULL, '', '', '', '', '', '', 'lB5tgyqOBc+c/8JWcxoKiPBDg3SrmaqsqTidHACgqRs=', NULL, 1, NULL, NULL, 'Uploads\\avatar0.png', '0000-00-00 00:00:00'),
-(35, '', 'past', '', 'present', '', b'0', '0000-00-00', '', '', '', '', '', '639245871251', 'p@g.com', '', '', NULL, '', '', '', '', '', '', 'hGjFNBiCay8aDfmHFfJ6LEpHvCa7jD7u+lJQQ6o5DXo=', NULL, 7, NULL, NULL, 'Uploads\\avatar0.png', '2016-12-23 00:00:00');
+(37, '', 'First', '', 'Last', '', b'0', '0000-00-00', '', '', '', '', '', '639012345678', 'sample@y.c', '', '', NULL, '', '', '', '', '', '', 'gBdFAfIA5KqcQvX3+KeMTIHNvwxjBVgSFLJnq8a9UNI=', NULL, 1, NULL, NULL, 'Uploads\\37_First Last.png', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -397,17 +390,6 @@ CREATE TABLE `emp_educbg` (
   `Status` int(3) DEFAULT '1',
   `User_ID` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `emp_educbg`
---
-
-INSERT INTO `emp_educbg` (`ID`, `School`, `Level_ID`, `Address`, `From_Year`, `To_Year`, `Status`, `User_ID`) VALUES
-(1, 'FES', 1, 'Fairview QC', '2003-06-09', '2009-03-01', 1, 15),
-(2, 'NFHS', 2, 'Fairview QC', '2009-06-08', '2013-03-08', 1, 15),
-(3, 'North Fairview Elementary School', 1, 'North Fairview Quezon City', '2016-12-01', '2016-12-09', 1, 0),
-(4, 'PUP', 3, 'Don Fabian QC', '0000-00-00', '0000-00-00', 1, 0),
-(5, 'PUPQC', 1, 'Don Fabian Street', '0000-00-00', '0000-00-00', 1, 15);
 
 -- --------------------------------------------------------
 
@@ -440,15 +422,6 @@ CREATE TABLE `emp_familybg` (
   `User_ID` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `emp_familybg`
---
-
-INSERT INTO `emp_familybg` (`ID`, `Name`, `Occupation`, `Relation`, `Status`, `User_ID`) VALUES
-(1, 'Jessica', 'Student', 'Sibling', 1, 14),
-(2, 'Benjamin Goose Nimaharu', 'Sales Manager', 'Father', 1, 14),
-(3, 'Sheryl Diaz Manago', 'Public Accountant', 'Sibling', 1, 14);
-
 -- --------------------------------------------------------
 
 --
@@ -464,14 +437,6 @@ CREATE TABLE `emp_workbg` (
   `Status` int(3) DEFAULT '1',
   `User_ID` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `emp_workbg`
---
-
-INSERT INTO `emp_workbg` (`ID`, `Company_Name`, `Job_Title`, `From_Year`, `To_Year`, `Status`, `User_ID`) VALUES
-(1, 'JEnus', 'Developer', '2009-12-12', '2016-12-11', 1, 15),
-(2, 'PUPICTC', 'Systems Analyst', '2016-12-01', '2016-12-16', 1, 15);
 
 -- --------------------------------------------------------
 
@@ -509,26 +474,10 @@ INSERT INTO `job` (`id`, `Job_Title`, `Code`, `Description`, `Status`, `Dept_ID`
 
 CREATE TABLE `log` (
   `id` int(3) NOT NULL,
-  `Login_Time` datetime DEFAULT "0000-00-00 00:00:00",
-  `Logout_Time` datetime DEFAULT "0000-00-00 00:00:00",
+  `Login_Time` datetime DEFAULT '0000-00-00 00:00:00',
+  `Logout_Time` datetime DEFAULT '0000-00-00 00:00:00',
   `User_ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `log`
---
-
-INSERT INTO `log` (`id`, `Login_Time`, `Logout_Time`, `User_ID`) VALUES
-(2, '2016-12-23 09:53:28', '0000-00-00 00:00:00', 33),
-(3, '2016-12-23 09:58:07', '0000-00-00 00:00:00', 33),
-(4, '2016-12-23 10:03:46', '0000-00-00 00:00:00', 33),
-(5, '2016-12-23 10:04:08', '0000-00-00 00:00:00', 35),
-(6, '2016-12-23 10:05:42', '0000-00-00 00:00:00', 35),
-(7, '2016-12-23 10:05:58', '0000-00-00 00:00:00', 33),
-(8, '2016-12-23 10:11:08', '0000-00-00 00:00:00', 33),
-(9, '2016-12-23 10:13:18', '0000-00-00 00:00:00', 33),
-(10, '2016-12-23 10:14:00', '0000-00-00 00:00:00', 33),
-(11, '2016-12-23 10:15:34', '0000-00-00 00:00:00', 33);
 
 -- --------------------------------------------------------
 
@@ -555,6 +504,21 @@ INSERT INTO `status` (`ID`, `Status_Name`) VALUES
 (7, 'On - Leave'),
 (8, 'Inactive'),
 (9, 'Pending');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `time`
+--
+
+CREATE TABLE `time` (
+  `ID` int(3) NOT NULL,
+  `Time_In` datetime DEFAULT '0000-00-00 00:00:00',
+  `Time_Out` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `Break_In` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `Break_Out` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `User_ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
@@ -628,6 +592,13 @@ ALTER TABLE `status`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indexes for table `time`
+--
+ALTER TABLE `time`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `User_ID` (`User_ID`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -635,12 +606,12 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT for table `branch`
 --
 ALTER TABLE `branch`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `educational_level`
 --
@@ -650,12 +621,12 @@ ALTER TABLE `educational_level`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `User_ID` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `User_ID` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT for table `emp_educbg`
 --
 ALTER TABLE `emp_educbg`
-  MODIFY `ID` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID` int(3) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `emp_emergency`
 --
@@ -665,12 +636,12 @@ ALTER TABLE `emp_emergency`
 -- AUTO_INCREMENT for table `emp_familybg`
 --
 ALTER TABLE `emp_familybg`
-  MODIFY `ID` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(3) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `emp_workbg`
 --
 ALTER TABLE `emp_workbg`
-  MODIFY `ID` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(3) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `job`
 --
@@ -680,12 +651,17 @@ ALTER TABLE `job`
 -- AUTO_INCREMENT for table `log`
 --
 ALTER TABLE `log`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `status`
 --
 ALTER TABLE `status`
   MODIFY `ID` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT for table `time`
+--
+ALTER TABLE `time`
+  MODIFY `ID` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 --
 -- Constraints for dumped tables
 --

@@ -92,14 +92,12 @@ $profile_pic = $row[0];
                   <div class="description-block">
 
                     <form action="Upload.php?userid=<?php echo $_POST['userid'];?>&name=<?php echo $_POST['name'];?>" method="post" enctype="multipart/form-data">
-                      <h4 class="text-yellow pull-left">Select image to upload:</h4> &nbsp; &nbsp; &nbsp;                     
-                      <input type="file" name="fileToUpload" id="fileToUpload" style="width:200px" class="pull-right">
-                      <input type="submit" class="btn btn-block btn-default pull-right" value="Upload Image" name="submit">
+                      <h4 class="text-yellow pull-left">Select image to upload:</h4>
+                      <input type="file" name="fileToUpload" id="fileToUpload" style="width:200px"><br/>
+                      <input type="submit" class="btn btn-block btn-default" value="Upload Image" name="submit">
                       <input type="hidden" name="userid" value="<?php echo $userid; ?>"/>
                       <input type="hidden" name="name" value="<?php echo $name; ?>"/>
                     </form>
-                    <br>
-                    <br>
                     <br>
                     <!-- <form action="T_Profile.php?userid=<?php echo $_GET['userid'];?>" method="get"> -->
                     <form action="#" method="get">

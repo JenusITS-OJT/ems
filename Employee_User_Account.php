@@ -89,9 +89,7 @@
                 <h3 class="box-title">Update Account</h3>
               </div>
 
-            <div class="box-body content">   
-  
-                          
+            <div class="box-body"> 
               <div class="col-md-12">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Username</label>
@@ -115,6 +113,8 @@
             </div>
             </div>
             </div>
+
+            
              <div class="box-footer" align="right">
             <input type="hidden" name="id" value="<?php echo $userid; ?>"/>
            <button type="submit" class="btn btn-primary">Update Account</button>
