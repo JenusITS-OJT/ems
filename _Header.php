@@ -10,8 +10,6 @@ $sql="SELECT e.`Profile_Pic`
 $result = mysqli_query($con, $sql);
 $row = mysqli_fetch_array($result);
 $profile_pic = $row[0];
-//$name=$_COOKIE['koki']['name'];
-//$role=$_COOKIE['koki']['role'];
 if(!isset($name))
   {
     header('Location: Login_NoAccess.php?id=failed&msg=Please insert valid credential!');
@@ -21,7 +19,7 @@ require ('_Connection.php');
 
   <header class="main-header" >
     <!-- Logo -->
-    <a href="Dashboard.php" class="logo">
+    <a href="#" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><img src="logo.png" alt="Jenus ITS" height="20" width="50"></span>
       <!-- logo for regular state and mobile devices -->
@@ -44,20 +42,24 @@ require ('_Connection.php');
                 <img src="<?php echo $profile_pic; ?>" class="img-circle" alt="User Image">
                 <p class="text-yellow">
                   <?php echo $name; ?>
-                </p>
-                <p class="text-yellow">
+                  <br>
                   <?php echo $jobtitle; ?>
                 </p>
               </li>
               <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="T_ViewProfile_.php" class="btn btn-default btn-flat">Profile</a>
+              <li class="user-body">
+                <div class="row">
+                  <div class="col-xs-4 text-center">
+                    <a href="T_ViewProfile_.php" class="btn btn-default btn-flat">Profile</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="User_Account.php" class="btn btn-default btn-flat">Account</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="_Logout.php" class="btn btn-default btn-flat">Sign out</a>
+                  </div>
                 </div>
-                <div class="pull-right">
-                  <a href="_Logout.php" class="btn btn-default btn-flat">Sign out</a>
-                </div>
-              </li>
+                <!-- /.row -->
             </ul>
           </li>
         </ul>

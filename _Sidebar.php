@@ -42,13 +42,50 @@ require ('_Connection.php');
             <span class="pull-right-container">
               <i class="fa fa-angle-right pull-right"></i>
             </span>
-          </a>      
+          </a>
 
           <ul class="treeview-menu">
-            <li><a href="CM_Branch.php"><i class="fa fa-circle-o"></i>Branches</a></li>
-            <li><a href="CM_Department.php"><i class="fa fa-circle-o"></i>Department</a></li>
-            <li><a href="CM_JobTitle.php"><i class="fa fa-circle-o"></i>Job Title</a></li>
+            <li>
+              <a href="#">
+                <i class="fa fa-info "></i>
+                <span>Profiling</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-right pull-right"></i>
+                </span>
+              </a>
+            
+
+              <ul class="treeview-menu">
+                <li><a href="CM_Branch.php"><i class="fa fa-circle-o"></i>Branches</a></li>
+                <li><a href="CM_Department.php"><i class="fa fa-circle-o"></i>Department</a></li>
+                <li><a href="CM_Team.php"><i class="fa fa-circle-o"></i>Team</a></li>
+                <li><a href="CM_JobTitle.php"><i class="fa fa-circle-o"></i>Job Title</a></li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">
+                <i class="fa fa-reorder"></i>
+                <span>Attendance/Leave</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-right pull-right"></i>
+                </span>
+              </a>
+            
+              <ul class="treeview-menu">
+                <li><a href="Holiday.php"><i class="fa fa-circle-o"></i>Holiday</a></li>
+                <li><a href="Leave.php"><i class="fa fa-circle-o"></i>Leave Type</a></li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="Deduction">
+                <i class="fa fa-money"></i>
+                <span>Deduction</span>
+              </a>
+            </li>
           </ul>
+          
         </li>
 
         <li class="treeview">
@@ -60,37 +97,51 @@ require ('_Connection.php');
           </a>      
 
           <ul class="treeview-menu">
-            <li><a href="T_SetHireDate.php"><i class="fa fa-circle-o"></i>Set Hire Date</a></li>
-            <li><a href="T_ViewEmployeeList.php"><i class="fa fa-circle-o"></i>View Employee List</a></li>
+            <li><a href="T_SetCredential.php"><i class="fa fa-circle-o"></i>Set Credentials</a></li>
+            <li><a href="T_ApproveLeave.php"><i class="fa fa-circle-o"></i>Approve Leave</a></li>
+            <li><a href="T_GeneratePayroll.php"><i class="fa fa-circle-o"></i>Generate Payroll</a></li>
           </ul>
         </li>
 
-          <li class="treeview">
-          <a href="Q_Log.php">
-            <i class="fa fa-tasks"></i>
-            <span>Log Queries</span>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-search"></i>
+            <span>Queries</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
           </a>
+
+          <ul class="treeview-menu">
+            <li><a href="Q_Attendance.php"><i class="fa fa-circle-o"></i>Attendance</a></li>
+            <li><a href="Q_SystemLog.php"><i class="fa fa-circle-o"></i>System Log</a></li>
+            <li><a href="Q_EmployeeList.php"><i class="fa fa-circle-o"></i>Employee List</a></li>
+            <li><a href="Q_PagIbig.php"><i class="fa fa-circle-o"></i>PAG-IBIG Table</a></li>
+            <li><a href="Q_PhilHealth.php"><i class="fa fa-circle-o"></i>PhilHealth Advisory</a></li>
+            <li><a href="Q_SSS.php"><i class="fa fa-circle-o"></i>SSS Contribution Schedule</a></li>
+            <li><a href="Q_Tax.php"><i class="fa fa-circle-o"></i>Withholding Tax Table</a></li>  
+          </ul>
         </li>
 
         <li class="treeview">
-          <a href="R_Reports.php">
+          <a href="#">
             <i class="fa fa-newspaper-o"></i>
-            <span>Create Reports</span>
-          </a>
-        </li>
+            <span>Reports</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
 
-        <li class="treeview">
-          <a href="T_ViewProfile_.php">
-            <i class="fa fa-user"></i>
-            <span>Profile</span>
           </a>
-        </li>
 
-        <li class="treeview">
-          <a href="User_Account.php">
-            <i class="fa fa-laptop"></i>
-            <span>User Account</span>
-          </a>
+          <ul class="treeview-menu">
+            <li><a href="R_Attendance.php"><i class="fa fa-circle-o"></i>Attendance Summary</a></li>
+            <li><a href="R_EmployeeList.php"><i class="fa fa-circle-o"></i>Employee Masterlist</a></li>
+            <li><a href="R_Payslip.php"><i class="fa fa-circle-o"></i>Payslip</a></li>
+            <li><a href="R_PayrollSummary.php"><i class="fa fa-circle-o"></i>Payroll Summary</a></li>
+            <li><a href="R_SSS.php"><i class="fa fa-circle-o"></i>SSS Contribution Summary</a></li>
+            <li><a href="R_TardinessLate.php"><i class="fa fa-circle-o"></i>Tardiness/Late Summary</a></li>  
+            <li><a href="R_SalarySummary.php"><i class="fa fa-circle-o"></i>Team's Salary Summary</a></li>
+          </ul>
         </li>
       </ul>
     </section>
