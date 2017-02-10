@@ -42,6 +42,13 @@ require ('_Connection.php');
           </a>
         </li>
 
+         <li class="treeview">
+         <a href="T_LeaveRequest.php">
+            <i class="fa fa-calendar-o "></i>
+            <span>Request Leave</span>
+          </a>
+        </li>
+
         <li class="treeview">
          <a href="Employee_User_Account.php">
             <i class="fa fa-laptop "></i>

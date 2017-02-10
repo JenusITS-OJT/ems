@@ -4,7 +4,7 @@
 if (isset($_GET['id']))
   $id = $_GET['id'];   
 else
-   header("Location: CM_Branch.php");
+   header("Location: HR_Team.php");
 ?>
 <head>
   <meta charset="utf-8">
@@ -47,191 +47,231 @@ else
       <section class="content-header">
         <h1>
           Employee Management System
-          <small>| Branch</small>
+          <small>| Team</small>
         </h1>
         <ol class="breadcrumb">
           <li><a href="Dashboard.php"><i class="fa fa-dashboard"></i> Home</a></li>
           <li><a href="#"><i class="fa fa-gear"></i>Configuration Management</a></li>
-          <li class="active">Branch</li>
+          <li class="active">Team</li>
         </ol>
       </section>
       <br>
       <!-- Main content -->  
       <section class="content">
-      <!-- SELECT2 EXAMPLE -->
+	    <!-- SELECT2 EXAMPLE -->
       <div class="box box-warning">
         <div class="box-header with-border">
-          <h3 class="box-title">Update Branch</h3>
+          <h3 class="box-title">Update Team</h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
           </div>
         </div>
 
-        <form action="_CM_Branch.php" method="get">
+        <form action="_T_Team.php" method="get">
 
         <?php $sql="SELECT 
-                b.`id`, 
-                b.`Address`, 
-                b.`Contact_No`, 
-                b.`Email`, 
-                b.`Date_Established`, 
-                s.`Status_Name`
-                  FROM `branch` AS b
-                  INNER JOIN `status` AS s
-                  ON s.`ID` = b.`Status`
-                  WHERE b.`id` = $id";
+                    t.`id`, 
+                    t.`Team_Name`, 
+                    d.`Dept_Name`,
+                    t.`Shift`, 
+                    t.`Status`,
+                    t.`Dept_ID`
+                    FROM `team` as t 
+                    INNER JOIN `department` AS d 
+                    ON d.`ID` = t.`Dept_ID`
+                    WHERE t.`id` = $id";
                   $result = mysqli_query($con, $sql);
                   while($row = mysqli_fetch_array($result)){
                         $id = $row[0];
-                        $address = $row[1];
-                        $contact = $row[2];
-                        $email = $row[3];
-                        $date = $row[4];
-                        $status = $row[5];
+                        $teamname = $row[1];
+                        $department = $row[2];
+                        $shift = $row[3];
+                        $status = $row[4];
+                        $deptid = $row[5];
                       }
-        ?>
+       ?>
 
-            <div class="box-body">
-              <div class="col-md-12">
+        <div class="box-body">                
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Team Name</label>              
+              <input type="text" class="form-control" id="teamname" name="teamname" placeholder="Team Name" value="<?php echo $teamname; ?>" required>
+            </div>
+  	      </div>
+
+           <div class="col-md-6">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Branch Address</label>
-                  <input type="text" class="form-control" id="address" name="address" placeholder="Address Line, Street, State, Country" value="<?php echo $address; ?>" required>
+                  <label for="exampleInputEmail1">Department</label>
+                  <select class="form-control" id="department" name="department" placeholder="Department" required>
+                     <?php $sql="SELECT
+                                    d.`ID`, 
+                                    d.`Dept_Name`
+                                    FROM `department` as d
+                                    WHERE d.`Status` = 1 and d.`ID` != $deptid order by d.`Dept_Name`;";
+                                    $result = mysqli_query($con, $sql);
+                                    ?>
+
+                                     <option value="<?php echo $deptid; ?>"><?php echo $department; ?></option>
+
+                                    <?php
+                                    while($row = mysqli_fetch_array($result)){
+                                  ?>
+                      <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
+                      <?php } ?>
+                  </select>
                 </div>
               </div>
-                        
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Contact Number</label>
-                  <input type="number" class="form-control" id="contactno" name="contactno" placeholder="Contact Number" value="<?php echo $contact; ?>" required/>
-                </div>
-              </div>
 
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Email Address</label>
-                  <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" value="<?php echo $email; ?>" required>
-                </div>
-              </div>
+                  <label for="exampleInputEmail1">Shift</label>
+                           <?php 
+                           if ($row[3]==0)
+                                $shift = 'DayShift';
+                              else
+                                $shift = 'NightShift';
+                            ?>
+                    
+                  <select class="form-control" id="shift" name="shift" placeholder="Shift" required>
+                     <option>Select Shift....</option>
 
-              <!-- Date -->
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Date Established</label>
-                  <div class="input-group date">
-                    <div class="input-group-addon">
-                      <i class="fa fa-calendar"></i>
-                    </div>
-                    <input type="date" class="form-control pull-right" id="datepicker2" name="datepicker2" value="<?php echo $date; ?>" required></input>
-                  </div>
-                  <!-- /.input group -->
+
+
+
+                     
+                     <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
+                  </select>
                 </div>
               </div>
 
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Status</label>
+                  <?php
+                        if ($row[4]==0)
+                          $status = 'Active';
+                        else
+                          $status = 'Inactive';
+                      ?>
                   <select class="form-control" id="status" name="status" placeholder="Status" value="<?php echo $status; ?>" required>
-                    <?php $sql="SELECT
-                                  s.`ID`, 
-                                  s.`Status_Name`
-                                  FROM `status` as s where s.`id` = '1' or s.`id` = '8'";
-                                  $result = mysqli_query($con, $sql);
-                                  while($row = mysqli_fetch_array($result)){
-                                ?>
-                    <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
-                    <?php } ?>
+                        <option>Select Status....</option>
+                        <option value=0> Active </option>
+                        <option value=1> Inactive </option>
                   </select>
                 </div>
               </div>
 
-              <input type="hidden" name="id" value="<?php echo $id; ?>">
 
-              <div class="box-footer" align="right">
-                <button type="submit" class="btn btn-primary">Submit</button>
-                
-                &nbsp;&nbsp;&nbsp;
-                <a href="CM_Branch.php"><button type="button" class="btn btn-default">Cancel</button></a>
-              </div>
-           </div>
-          </form>
+          <input type="hidden" name="id" value="<?php echo $id; ?>"/>
 
+
+          <div class="box-footer" align="right">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form> &nbsp;&nbsp;&nbsp;
+            <a href="HR_Team.php"><button type="button" class="btn btn-default">Cancel</button></a>
+          </div>
+
+          
+
+        </div>
+
+
+      </div>
 
 
           <div class="box box-warning">
-          <div class="box-header">
-            <h3 class="box-title">Branch</h3>
-          </div>
-          <!-- /.box-header -->
-
-          <div class="box-body" style="overflow-x:auto;">
-            <table id="branch" class="table table-bordered table-striped">
-              <thead>
+            <div class="box-header">
+              <h3 class="box-title">Team</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" style="overflow-x:auto;">
+              <table id="team" class="table table-bordered table-striped">
+                <thead>
                 <tr>
-                  <th>Branch ID</th>
-                  <th>Branch Address</th>
-                  <th>Contact Number</th>
-                  <th>Email Address</th>
-                  <th>Date Started</th>
+                  <th>Team ID</th>
+                  <th>Team Name</th>
+                  <th>Department</th>
+                  <th>Shift</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <?php $sql="SELECT 
-                b.`ID`, 
-                b.`Address`, 
-                b.`Contact_No`, 
-                b.`Email`, 
-                b.`Date_Established`, 
-                s.`Status_Name`
-                  FROM `branch` AS b
-                  INNER JOIN `status` AS s
-                  ON s.`ID` = b.`Status` where s.`id` = '1'";
-                    $result = mysqli_query($con, $sql);
-                    while($row = mysqli_fetch_array($result)){
-                  ?>
-              <tbody>
+                          t.`id`, 
+                          t.`Team_Name`, 
+                          d.`Dept_Name`,
+                          t.`Shift`, 
+                          t.`Status`
+                          FROM `team` as t 
+                          INNER JOIN `department` AS d 
+                          ON d.`ID` = t.`Dept_ID`
+                          where t.`status` = '1'";
+                  $result = mysqli_query($con, $sql);
+                  while($row = mysqli_fetch_array($result)){
+                ?> 
+                <tbody>
                 <tr>
-                  <?php $id=$row[0] ?>
+                <?php $id=$row[0]; ?>
                   <td><?php echo $row[0] ?></td>
                   <td><?php echo $row[1] ?></td>
                   <td><?php echo $row[2] ?></td>
-                  <td><?php echo $row[3] ?></td>
-                  <td><?php echo $row[4] ?></td>
-                  <td><?php echo $row[5] ?></td>
-                  <td>
-                    <div class="btn-group">
-                        <form action="CM_Branch1.php?id=<?php echo $_GET['id'];?>" method="get">
-                          <button type="submit" class="btn btn-block btn-success btn-flat btn-sm"  value="Update">
+                  <td><?php
+                          $shift= $row[3];
+                          if ($shift == '0')
+                            { 
+                              echo 'Day Shift';
+                            }
+                          else 
+                            { 
+                              echo 'Night Shift';
+                            }
+                        ?></td>
+                  <td><?php
+                        $status= $row[4];
+                        if ($status == '0' )
+                          { 
+                            echo 'Active';
+                          }
+                        else 
+                          { 
+                            echo 'Inactive';
+                          }
+                  ?></td>
+                <td>
+                  <div class="btn-group">
+                    <form action="HR_Team1.php?id=<?php echo $_GET['id'];?>" method="get">
+                          <button type="submit" class="btn btn-success btn-flat btn-sm"  value="Update">
                             <i class="fa fa-pencil"></i>
                             Update
                           </button>
                           <input type="hidden" name="id" value="<?php echo $row[0]; ?>"/>
                         </form>
-                          &nbsp;
-                        <form action="Form_CM_Branch_Del.php?id=<?php echo $_GET['id'];?>" method="get">
-                          <button type="submit" class="btn btn-block btn-danger btn-flat btn-sm"  value="Delete">
-                            <i class="fa fa-trash"></i>
-                            Delete
-                          </button>
-                          <input type="hidden" name="id" value="<?php echo $row[0]; ?>"/>
-                        </form>
-                    </div>
-                  </td>
+                    &nbsp;
+                    <form action="HR_Team2.php?id=<?php echo $_GET['id'];?>" method="get">
+                    <button type="submit" class="btn btn-danger btn-flat btn-sm"  value="Delete">
+                      <i class="fa fa-trash"></i>
+                      Delete
+                    </button>
+                    <input type="hidden" name="id" value="<?php echo $row[0]; ?>"/>
+                    </form>
+                  </div>
+                </td>
                 </tr>
-                <?php } ?>                    
-              </tfoot>
-            </table>
+                <?php } ?>
+                </tbody>
+              </table>
             </div>
             <!-- /.box-body -->
           </div>
 
               <!-- /.box-body -->
-        
+			  
             </form>
       </div>
-    </section>
+	  </section>
       <!-- /.box -->
+	</div> 
     <!-- ./wrapper -->
     
 <?php require('_Footer.php');?>
@@ -317,7 +357,7 @@ else
           $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         }
     );
-  //Date picker
+	//Date picker
     $('#datepicker').datepicker({
       autoclose: true
     });
@@ -347,8 +387,8 @@ else
     $(".timepicker").timepicker({
       showInputs: false
     });
-  
-  $("#example1").DataTable();
+	
+	$("#example1").DataTable();
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<?php require('_Connection.php') ?>
+<?php require('_Connection.php'); ?>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,175 +38,102 @@
 <?php require('_Sidebar.php');?>
   <div class="wrapper">
   <!-- Content Wrapper. Contains page content -->
+
+
+<div class="wrapper">
+  <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
-
       <section class="content-header">
         <h1>
           Employee Management System
-          <small>| Branch</small>
+          <small>| User Account</small>
         </h1>
         <ol class="breadcrumb">
           <li><a href="Dashboard.php"><i class="fa fa-dashboard"></i> Home</a></li>
-          <li><a href="#"><i class="fa fa-gear"></i>Configuration Management</a></li>
-          <li class="active">Branch</li>
+          <li><a href="#"><i class="fa fa-laptop"></i>User Account</a></li>
         </ol>
       </section>
       <br>
-
-      <!-- Main content -->  
-      <section class="content">
+            <!-- BEGIN PAGE CONTENT-->
+             <!--BEGIN FIRST FORM-->
+ 
+ <section class="content">
         <!-- SELECT2 EXAMPLE -->
-        <div class="box box-warning">
 
-          <div class="box-header with-border">
-            <h3 class="box-title">Add Branch</h3>
-            <div class="box-tools pull-right">
-              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-              <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-            </div>
-          </div>
+        <form action="_T_Request_Leave" method="get">
 
-          <form action="_CM_Branch.php" method="get">
-            <div class="box-body">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Branch Address</label>
-                  <textarea class="form-control" id="address" name="address" placeholder="Address Line, Street, State, Country" required/></textarea>
-                </div>
-              </div>
-                        
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Contact Number</label>
-                  <input type="number" class="form-control" id="contactno" maxlength="13" name="contactno" placeholder="Contact Number" required/>
-                </div>
-              </div>
+         <!--  <?php
 
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Email Address</label>
-                  <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" required>
-                </div>
-              </div>
-
-              <!-- Date -->
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Date Established</label>
-                  <div class="input-group date">
-                    <div class="input-group-addon">
-                      <i class="fa fa-calendar"></i>
-                    </div>
-                    <input type="date" class="form-control pull-right" id="datepicker2" name="datepicker2" required></input>
-                  </div>
-                  <!-- /.input group -->
-                </div>
-              </div>
-
-
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Status</label>
-                  <select class="form-control" id="status" name="status" placeholder="Status" required>
-                    <?php $sql="SELECT
-                                  s.`ID`, 
-                                  s.`Status_Name`
-                                  FROM `status` as s where s.`id` = '1' or s.`id` = '8'";
-                                  $result = mysqli_query($con, $sql);
-                                  while($row = mysqli_fetch_array($result)){
-                                ?>
-                    <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
-                    <?php } ?>
-                  </select>
-                </div>
-              </div>
-
-              <div class="box-footer" align="right">
-                <button type="submit" class="btn btn-primary">Submit</button>
-                &nbsp;&nbsp;&nbsp;
-                <button type="reset" class="btn btn-default">Clear Fields</button>
-              </div>
-            </div>
-          </form>
-
-        </div>
-
-       <div class="box box-warning">
-          <div class="box-header">
-            <h3 class="box-title">Branch</h3>
-          </div>
-          <!-- /.box-header -->
-
-          <div class="box-body" style="overflow-x:auto;">
-            <table id="branch" class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>Branch ID</th>
-                  <th>Branch Address</th>
-                  <th>Contact Number</th>
-                  <th>Email Address</th>
-                  <th>Date Started</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <?php $sql="SELECT 
-                b.`ID`, 
-                b.`Address`, 
-                b.`Contact_No`, 
-                b.`Email`, 
-                b.`Date_Established`
-                  FROM `branch` AS b
-                  where b.`status` = '1'";
+            $userid=$_SESSION['session']['userid'];
+           $sql="SELECT 
+                    e.`Username`
+                    FROM `employee` as e
+                    WHERE e.`User_ID` = $userid "; 
                     $result = mysqli_query($con, $sql);
                     while($row = mysqli_fetch_array($result)){
-                  ?>
-              <tbody>
-                <tr>
-                  <?php $id=$row[0] ?>
-                  <td><?php echo $row[0] ?></td>
-                  <td><?php echo $row[1] ?></td>
-                  <td><?php echo $row[2] ?></td>
-                  <td><?php echo $row[3] ?></td>
-                  <td><?php echo $row[4] ?></td>
-                  <td>
-                    <div class="btn-group">
-                        <form action="CM_Branch1.php?id=<?php echo $_GET['id'];?>" method="get">
-                          <button type="submit" class="btn btn-success btn-flat btn-sm"  value="Update">
-                            <i class="fa fa-pencil"></i>
-                            Update
-                          </button>
-                          <input type="hidden" name="id" value="<?php echo $row[0]; ?>"/>
-                        </form>
-                          &nbsp;
-                        <form action="Form_CM_Branch_Del.php?id=<?php echo $_GET['id'];?>" method="get">
-                          <button type="submit" class="btn btn-danger btn-flat btn-sm"  value="Delete">
-                            <i class="fa fa-trash"></i>
-                            Delete
-                          </button>
-                          <input type="hidden" name="id" value="<?php echo $row[0]; ?>"/>
-                        </form>
-                    </div>
-                  </td>
-                </tr>
-                <?php } ?>                    
-              </tfoot>
-            </table>
-          </div>
-          <!-- /.box-body -->
-        </div>
-      </section>
-    <!-- /.box -->
-    </div>
-  <!-- ./wrapper -->
-            
-<?php require('_Footer.php');?>
-  <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-    <div class="control-sidebar-bg"></div>
-</div>
-<!-- ./wrapper -->
+                           $username = $row[0];
+                        }
+                       
+?> -->
 
+        <div class="box box-warning">
+              <div class="box-header with-border">
+                <h3 class="box-title">Request Leave</h3>
+          </div>
+
+             <div class="box-body">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Employee Name</label>
+                  <input type="text" class="form-control" id="empname" name="empname" placeholder="Employee Name"  required>
+                </div>
+              </div>  
+
+              <div class="box-body">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Employee ID</label>
+                  <input type="text" class="form-control" id="username" name="Emp ID" placeholder="Employee ID"  required>
+                </div>
+              </div> 
+          
+        
+
+              <div class="col-md-6">
+                <div class="form-group">
+                <label class="exampleInputPassword">New Password:</label>
+                    <input class="form-control"  type="password" name="npw" id ="npw" placeholder="New Password" required>
+                </div>
+              </div>
+
+            <div class="col-md-6">
+            <div class="form-group">
+                <label class="exampleInputPassword">Repeat New Password:</label>
+                   <input class="form-control" type="password" name="rnpw" id ="rnpw" placeholder="Repeat New Password" required>
+            </div>
+            </div>
+
+
+
+            </div>
+             <div class="box-footer" align="right">
+                <input type="hidden" name="id" value="<?php echo $userid; ?>"/>
+               <button type="submit" class="btn btn-primary">Update Account</button>
+               <button type="reset" class="btn btn-default">Clear Fields</button>
+            </div>
+
+            
+          </form>
+            </div>
+
+      
+             <!-- END BASIC TABLE -->
+
+   </section>  
+</div>
+
+<?php require('_Footer.php');?> 
 <!-- jQuery 2.2.3 -->
 <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -325,5 +252,6 @@
     });
   });
 </script>
+
 </body>
 </html>

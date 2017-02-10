@@ -58,7 +58,7 @@ require ('_Connection.php');
               <ul class="treeview-menu">
                 <li><a href="CM_Branch.php"><i class="fa fa-circle-o"></i>Branches</a></li>
                 <li><a href="CM_Department.php"><i class="fa fa-circle-o"></i>Department</a></li>
-                <li><a href="CM_Team.php"><i class="fa fa-circle-o"></i>Team</a></li>
+                <li><a href="HR_Team.php"><i class="fa fa-circle-o"></i>Team</a></li>
                 <li><a href="CM_JobTitle.php"><i class="fa fa-circle-o"></i>Job Title</a></li>
               </ul>
             </li>
@@ -78,12 +78,23 @@ require ('_Connection.php');
               </ul>
             </li>
 
-            <li>
-              <a href="Deduction">
+
+             <li>
+              <a href="#">
                 <i class="fa fa-money"></i>
-                <span>Deduction</span>
+                <span>Payroll</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-right pull-right"></i>
+                </span>
               </a>
+            
+              <ul class="treeview-menu">
+                <li><a href="#"><i class="fa fa-circle-o"></i>Benefits</a></li>
+                <li><a href="#"><i class="fa fa-circle-o"></i>Deductions</a></li>
+              </ul>
             </li>
+
+         
           </ul>
           
         </li>
@@ -97,7 +108,7 @@ require ('_Connection.php');
           </a>      
 
           <ul class="treeview-menu">
-            <li><a href="T_SetCredential.php"><i class="fa fa-circle-o"></i>Set Credentials</a></li>
+            <li><a href="T_SetHireDate.php"><i class="fa fa-circle-o"></i>Set Credentials</a></li>
             <li><a href="T_ApproveLeave.php"><i class="fa fa-circle-o"></i>Approve Leave</a></li>
             <li><a href="T_GeneratePayroll.php"><i class="fa fa-circle-o"></i>Generate Payroll</a></li>
           </ul>

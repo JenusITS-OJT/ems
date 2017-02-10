@@ -118,17 +118,50 @@
           <!-- /.col -->
         </div>
         <!-- /.row -->
-        <br>
+        
         <div class="row">
 
           <!-- timein -->
-          <div class="col-md-5">
+    <div class="col-md-12">
+  <script>
+var d = new Date(<?php echo time() * 1000 ?>);
 
-            <h1 align="center">
-              <?php $time = date("g:i A");
-              echo $time;
-              ?>
-            </h1>
+function updateClock() {
+  // Increment the date
+  d.setTime(d.getTime() + 1000);
+
+  // Translate time to pieces
+  var currentHours = d.getHours();
+  var currentMinutes = d.getMinutes();
+  var currentSeconds = d.getSeconds();
+
+  // Add the beginning zero to minutes and seconds if needed
+  currentMinutes = (currentMinutes < 10 ? "0" : "") + currentMinutes;
+  currentSeconds = (currentSeconds < 10 ? "0" : "") + currentSeconds;
+
+  // Determine the meridian
+  var meridian = (currentHours < 12) ? "AM" : "PM";
+
+  // Convert the hours out of 24-hour time
+  currentHours = (currentHours > 12) ? currentHours - 12 : currentHours;
+  currentHours = (currentHours == 0) ? 12 : currentHours;
+
+  // Generate the display string
+  var currentTimeString = currentHours + ":" + currentMinutes + ":" + currentSeconds + " " + meridian;
+
+  // Update the time
+  document.getElementById("clock").firstChild.nodeValue = currentTimeString;
+}
+
+window.onload = function() {
+  updateClock();
+  setInterval('updateClock()', 1000);
+}
+</script>
+<body>
+ <h1 align="center">
+  <div id="clock">&nbsp;</div></h1>
+          
             <h3 align="center">            
               <?php $today = date("l, F j, Y");
               echo $today;
@@ -167,6 +200,8 @@
 
               ?>            
             </h3>
+            </body>
+
             <center>
                       <form action="_Time_.php?userid=<?php echo $_GET['userid'];?>&id=<?php echo $_GET['id'];?>" method="get">
                         <button type="submit" class="btn btn-success btn-flat"  value="Start-Lunch">
@@ -177,6 +212,8 @@
                       </form>
             </center>
             <br>
+            <br>
+            <div class="col-md-6">
             <div class="box box-warning">
               <div class="box-header with-border">
                 <h3 class="box-title text-blue">Your Time Record,<br><b><?php $today = date("l F j, Y");
@@ -284,7 +321,7 @@
           <!-- ./ end of div col-->
 
           <!-- time logs -->
-          <div class="col-md-7">
+          <div class="col-md-6">
             <!-- TABLE: LATEST ORDERS -->
             <div class="box box-warning">
               <div class="box-header with-border">
@@ -436,7 +473,7 @@
           </div>
         </div>
 
-        <div class="row">
+     
 
           <div class="col-md-6">
             <!-- TABLE: LATEST ORDERS -->

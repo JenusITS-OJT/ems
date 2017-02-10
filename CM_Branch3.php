@@ -82,7 +82,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Contact Number</label>
-                  <input type="text" class="form-control" id="contactno" maxlength="13" name="contactno" placeholder="Contact Number" required/>
+                  <input type="number" class="form-control" id="contactno" maxlength="13" name="contactno" placeholder="Contact Number" required/>
                 </div>
               </div>
 

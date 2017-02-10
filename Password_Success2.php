@@ -59,11 +59,11 @@
 
     <form method="post" action=<?php echo "_PasswordUpdate.php"?>>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Enter your new password" id="password1" name="password1" required/>
+        <input type="password" class="form-control" maxLength = "6" placeholder="Enter your new password" id="password1" name="password1" required/>
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Confirm your password" id="password2" name="password2" required/>
+        <input type="password" class="form-control" maxLength = "6" placeholder="Confirm your password" id="password2" name="password2" required/>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">

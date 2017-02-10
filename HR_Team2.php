@@ -1,16 +1,16 @@
+
 <!DOCTYPE html>
 <html>
 <?php require('_Connection.php');
 if (isset($_GET['id']))
-  $id = $_GET['id'];   
-else
-   header("Location: CM_Branch.php");
+  $id = $_GET['id'];
 ?>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel='shortcut icon' type='image/x-icon' href='logo.png'/>
   <title>Jenus ITS</title>
+
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -42,180 +42,158 @@ else
 <?php require('_Sidebar.php');?>
   <div class="wrapper">
   <!-- Content Wrapper. Contains page content -->
+
+
+<div class="wrapper">
+  <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
           Employee Management System
-          <small>| Branch</small>
+          <small>| Team</small>
         </h1>
         <ol class="breadcrumb">
           <li><a href="Dashboard.php"><i class="fa fa-dashboard"></i> Home</a></li>
           <li><a href="#"><i class="fa fa-gear"></i>Configuration Management</a></li>
-          <li class="active">Branch</li>
+          <li class="active">Team</li>
         </ol>
       </section>
       <br>
       <!-- Main content -->  
       <section class="content">
-      <!-- SELECT2 EXAMPLE -->
-      <div class="box box-warning">
-        <div class="box-header with-border">
-          <h3 class="box-title">Update Branch</h3>
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+
+      <form action="_T_Team2.php" method="get">
+        <div class="box box-warning">
+          <div class="box-header">
+            <h3 class="box-title">Delete Record?</h3>
           </div>
-        </div>
+          <div class="box-header">
+            <div class="box-body" style="overflow-x:auto;">
+            <h4>Do you want to delete the record below?</h4><small>You will not be able to retrieve this anymore.</small>
+            <br/><br/>
 
-        <form action="_CM_Branch.php" method="get">
 
-        <?php $sql="SELECT 
-                b.`id`, 
-                b.`Address`, 
-                b.`Contact_No`, 
-                b.`Email`, 
-                b.`Date_Established`, 
-                s.`Status_Name`
-                  FROM `branch` AS b
-                  INNER JOIN `status` AS s
-                  ON s.`ID` = b.`Status`
-                  WHERE b.`id` = $id";
+            <table id="team" class="table table-bordered table-striped">
+              <?php $sql="SELECT 
+                          t.`id`, 
+                          t.`Team_Name`, 
+                          t.`Shift`, 
+                          t.`Status`, 
+                          d.`Dept_Name` 
+                          FROM `team` as t 
+                          INNER JOIN `department` AS d 
+                          ON d.`ID` = t.`Dept_ID`
+                          WHERE t.`id` = '$id'";
                   $result = mysqli_query($con, $sql);
                   while($row = mysqli_fetch_array($result)){
                         $id = $row[0];
-                        $address = $row[1];
-                        $contact = $row[2];
-                        $email = $row[3];
-                        $date = $row[4];
-                        $status = $row[5];
-                      }
-        ?>
+                        $teamname = $row[1];
+                        $department = $row[2];
+                        $shift = $row[3];
+                        $status = $row[4];
+                  }
+              ?>
+              <thead>
+                <tr>
+                  <th>Team ID</th>
+                  <th>Team Name</th>
+                  <th>Department</th>
+                  <th>Shift</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><?php echo $id ?></td>
+                  <td><?php echo $teamname ?></td>
+                  <td><?php echo $department ?></td>
+                  <td><?php echo $shift ?></td>
+                  <td><?php echo $status ?></td>
+                </tr>                   
+              </tfoot>
+            </table>
 
-            <div class="box-body">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Branch Address</label>
-                  <input type="text" class="form-control" id="address" name="address" placeholder="Address Line, Street, State, Country" value="<?php echo $address; ?>" required>
-                </div>
-              </div>
-                        
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Contact Number</label>
-                  <input type="number" class="form-control" id="contactno" name="contactno" placeholder="Contact Number" value="<?php echo $contact; ?>" required/>
-                </div>
-              </div>
+          </div>
+          </div>
+            <input type="hidden" name="id" value="<?php echo $id; ?>"/>
+          <div class="box-footer" align="right">
+                <button type="submit" class="btn btn-warning">Delete Record</button>
 
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Email Address</label>
-                  <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" value="<?php echo $email; ?>" required>
-                </div>
-              </div>
-
-              <!-- Date -->
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Date Established</label>
-                  <div class="input-group date">
-                    <div class="input-group-addon">
-                      <i class="fa fa-calendar"></i>
-                    </div>
-                    <input type="date" class="form-control pull-right" id="datepicker2" name="datepicker2" value="<?php echo $date; ?>" required></input>
-                  </div>
-                  <!-- /.input group -->
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Status</label>
-                  <select class="form-control" id="status" name="status" placeholder="Status" value="<?php echo $status; ?>" required>
-                    <?php $sql="SELECT
-                                  s.`ID`, 
-                                  s.`Status_Name`
-                                  FROM `status` as s where s.`id` = '1' or s.`id` = '8'";
-                                  $result = mysqli_query($con, $sql);
-                                  while($row = mysqli_fetch_array($result)){
-                                ?>
-                    <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
-                    <?php } ?>
-                  </select>
-                </div>
-              </div>
-
-              <input type="hidden" name="id" value="<?php echo $id; ?>">
-
-              <div class="box-footer" align="right">
-                <button type="submit" class="btn btn-primary">Submit</button>
-                
+    </form>
                 &nbsp;&nbsp;&nbsp;
-                <a href="CM_Branch.php"><button type="button" class="btn btn-default">Cancel</button></a>
+                <a href="HR_Team.php"><button type="button" class="btn btn-default">Cancel</button></a>
               </div>
-           </div>
-          </form>
-
-
+        </div>
 
           <div class="box box-warning">
           <div class="box-header">
-            <h3 class="box-title">Branch</h3>
+            <h3 class="box-title">Team</h3>
           </div>
           <!-- /.box-header -->
 
-          <div class="box-body" style="overflow-x:auto;">
-            <table id="branch" class="table table-bordered table-striped">
+
+          <div class="box-body" style="overflow-x:auto;"> 
+            <table id="team" class="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th>Branch ID</th>
-                  <th>Branch Address</th>
-                  <th>Contact Number</th>
-                  <th>Email Address</th>
-                  <th>Date Started</th>
+                  <th>Team ID</th>
+                  <th>Team Name</th>
+                  <th>Department</th>
+                  <th>Shift</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <?php $sql="SELECT 
-                b.`ID`, 
-                b.`Address`, 
-                b.`Contact_No`, 
-                b.`Email`, 
-                b.`Date_Established`, 
-                s.`Status_Name`
-                  FROM `branch` AS b
-                  INNER JOIN `status` AS s
-                  ON s.`ID` = b.`Status` where s.`id` = '1'";
-                    $result = mysqli_query($con, $sql);
-                    while($row = mysqli_fetch_array($result)){
-                  ?>
+                          t.`id`, 
+                          t.`Team_Name`,
+                          d.`Dept_Name`,
+                          t.`Shift`, 
+                          t.`Status`
+                          FROM `team` as t 
+                          INNER JOIN `department` AS d 
+                          ON d.`ID` = t.`Dept_ID`";
+                  $result = mysqli_query($con, $sql);
+                  while($row = mysqli_fetch_array($result)){
+                ?> 
               <tbody>
                 <tr>
-                  <?php $id=$row[0] ?>
+                  <?php $id=$row[0]; ?>
                   <td><?php echo $row[0] ?></td>
                   <td><?php echo $row[1] ?></td>
                   <td><?php echo $row[2] ?></td>
-                  <td><?php echo $row[3] ?></td>
-                  <td><?php echo $row[4] ?></td>
-                  <td><?php echo $row[5] ?></td>
+                  <td><?php
+                          $shift= $row[3];
+                          if ($shift == 0)
+                            { echo 'Day Shift';}
+                          else 
+                            { echo 'Night Shift';}
+                        ?></td>
+                  <td><?php
+                    $status= $row[4];
+                    if ($status == 0 )
+                      { echo 'Active';}
+                    else 
+                      { echo 'Inactive';}
+                  ?></td>
                   <td>
                     <div class="btn-group">
-                        <form action="CM_Branch1.php?id=<?php echo $_GET['id'];?>" method="get">
-                          <button type="submit" class="btn btn-block btn-success btn-flat btn-sm"  value="Update">
+                        <form action="HR_Team3.php?id=<?php echo $_GET['id'];?>" method="get">
+                          <button type="submit" class="btn btn-success btn-flat btn-sm"  value="Update">
                             <i class="fa fa-pencil"></i>
                             Update
                           </button>
                           <input type="hidden" name="id" value="<?php echo $row[0]; ?>"/>
                         </form>
                           &nbsp;
-                        <form action="Form_CM_Branch_Del.php?id=<?php echo $_GET['id'];?>" method="get">
+                        <a href="HR_Team2.php?id=<?php echo $_GET['id'];?>" method="get">
                           <button type="submit" class="btn btn-block btn-danger btn-flat btn-sm"  value="Delete">
                             <i class="fa fa-trash"></i>
                             Delete
                           </button>
                           <input type="hidden" name="id" value="<?php echo $row[0]; ?>"/>
-                        </form>
+                        </a>
                     </div>
                   </td>
                 </tr>
@@ -225,21 +203,12 @@ else
             </div>
             <!-- /.box-body -->
           </div>
-
-              <!-- /.box-body -->
-        
-            </form>
+        </div>
       </div>
-    </section>
-      <!-- /.box -->
-    <!-- ./wrapper -->
-    
-<?php require('_Footer.php');?>
-  <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
-</div>
-<!-- ./wrapper -->
+      </section>
+    </div>
+  </div>
+
 
 <!-- jQuery 2.2.3 -->
 <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 
+
 <?php require('_Connection.php');?>
 <?php require('_Header.php');?>
 <?php require('_Sidebar_.php');?>
@@ -61,18 +62,48 @@ $userid=$_SESSION['session']['userid'];
     <section class="content">
 
       <!--CONTENT HERE!-->
-      <div class="row">
+    <div class="col-md-12">
+      <script>
+        var d = new Date(<?php echo time() * 1000 ?>);
 
-        <div class="col-md-4">
+        function updateClock() {
+          // Increment the date
+        d.setTime(d.getTime() + 1000);
 
+        // Translate time to pieces
+       var currentHours = d.getHours();
+       var currentMinutes = d.getMinutes();
+       var currentSeconds = d.getSeconds();
+
+        // Add the beginning zero to minutes and seconds if needed
+      currentMinutes = (currentMinutes < 10 ? "0" : "") + currentMinutes;
+      currentSeconds = (currentSeconds < 10 ? "0" : "") + currentSeconds;
+
+      // Determine the meridian
+      var meridian = (currentHours < 12) ? "AM" : "PM";
+
+      // Convert the hours out of 24-hour time
+      currentHours = (currentHours > 12) ? currentHours - 12 : currentHours;
+      currentHours = (currentHours == 0) ? 12 : currentHours;
+
+      // Generate the display string
+     var currentTimeString = currentHours + ":" + currentMinutes + ":" + currentSeconds + " " + meridian;
+
+      // Update the time
+      document.getElementById("clock").firstChild.nodeValue = currentTimeString;
+                          }
+
+    window.onload = function() {
+    updateClock();
+    setInterval('updateClock()', 1000);
+                              }
+    </script>
+        <body>
           <h1 align="center">
-            <?php $time = date("g:i A");
-            echo $time;
-            ?>
-          </h1>
+            <div id="clock">&nbsp;</div></h1>
           <h3 align="center">            
             <?php $today = date("l, F j, Y");
-            echo $today;
+            echo $today; 
 
             /*$result = mysqli_query($con, "SELECT `ID` FROM `time` WHERE `User_ID` = '$userid' AND DATE(`Time_In`) = CURDATE() ORDER BY `Time_In` DESC LIMIT 1");
             $row = mysqli_fetch_array($result);
@@ -109,9 +140,10 @@ $userid=$_SESSION['session']['userid'];
               $stat = 'Time-In';
               /*$id = 0;*/
 
-
             ?>            
-          </h3>
+        </h3>
+      </body>
+
           <center>
                     <form action="_Time.php?userid=<?php echo $_GET['userid'];?>&id=<?php echo $_GET['id'];?>" method="get">
                       <button type="submit" class="btn btn-success btn-flat"  value="Start-Lunch">
@@ -120,10 +152,12 @@ $userid=$_SESSION['session']['userid'];
                       <input type="hidden" name="id" value="<?php echo $id; ?>"/>
                       <input type="hidden" name="userid" value="<?php echo $userid; ?>">
                     </form>
-          </center>
-                  
-        </div>
-        <div class="col-md-8">
+          </center>   
+        <br>
+    </div>
+
+
+        <div class="col-md-12">
           <div class="box box-warning">
             <div class="box-header with-border">
               <h3 class="box-title text-blue">Your Time Record, <b><?php $today = date("l F j, Y");
@@ -146,6 +180,7 @@ $userid=$_SESSION['session']['userid'];
 
                       if($yes >= 1){
                     ?>
+
                   <table id = "myTable"class="table table-bordered table-striped">
                     <thead>
                     <tr>

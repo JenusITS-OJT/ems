@@ -96,7 +96,7 @@ if (isset($_GET['userid']))
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="contactno">Contact Number</label>
-                  <input type="text" class="form-control" id="contactno" name="contactno" placeholder="Contact Number">
+                  <input type="number" class="form-control" id="contactno" name="contactno" maxlenght="13" placeholder="Contact Number">
                 </div>
               </div>
 
