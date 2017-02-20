@@ -55,6 +55,7 @@
 
       <!-- Main content -->  
       <section class="content">
+      <?php require('Unsuccessful.php');?>
 
         <!-- SELECT2 EXAMPLE -->
         <div class="box box-warning">
@@ -72,15 +73,14 @@
           </div>
 
 
-          <form action="_T_Team.php" method="get">
+          <form action="F_CM_Team.php" method="get">
             <div class="box-body">
-              <div class="col-md-12">
+              <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Team Name</label>
-                  <textarea class="form-control" id="teamname" name="teamname" placeholder="Team Name" required/></textarea>
+                  <input type="text" class="form-control" id="teamname" name="teamname" placeholder="Team Name" required/>
                 </div>
-              </div>
-                        
+              </div>                        
 
               <div class="col-md-6">
                 <div class="form-group">
@@ -103,14 +103,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Shift</label>
-                  <?php
-                        if ($row[3] == 0)
-                          $shift = 'DayShift';
-                        else
-                          $shift = 'NightShift';
-                      ?>
                   <select class="form-control" id="shift" name="shift" placeholder="Shift" required>
-                    <option>Select Shift....</option>
                     <option value=0> Day Shift </option>
                     <option value=1> Night Shift </option>
                   </select>
@@ -120,14 +113,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Status</label>
-                  <?php
-                        if ($row[4]== 0)
-                          $status = 'Active';
-                        else
-                          $status = 'Inactive';
-                      ?>
                   <select class="form-control" id="status" name="status" placeholder="Status" required>
-                        <option>Select Status....</option>
                         <option value=0> Active </option>
                         <option value=1> Inactive </option>
                   </select>
@@ -154,7 +140,6 @@
             <table id="team" class="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th>Team ID</th>
                   <th>Team Name</th>
                   <th>Department</th>
                   <th>Shift</th>
@@ -162,7 +147,7 @@
                   <th>Action</th>
                 </tr>
               </thead>
-              <?php $sql="SELECT 
+                <?php $sql="SELECT 
                           t.`id`, 
                           t.`Team_Name`,
                           d.`Dept_Name`,
@@ -176,8 +161,7 @@
                 ?> 
               <tbody>
                 <tr>
-                    <?php $id=$row[0]; ?>
-                    <td><?php echo $row[0] ?></td> 
+                    <?php $id=$row[0]; ?> 
                     <td><?php echo $row[1] ?></td>
                     <td><?php echo $row[2] ?></td>
                     <td><?php
@@ -197,7 +181,7 @@
                     <td>
                     <div class="btn-group">
 
-                      <form action="HR_Team1.php?id=<?php echo $_GET['id'];?>" method="get">
+                      <form action="CM_Team1.php?id=<?php echo $_GET['id'];?>" method="get">
                           <button type="submit" class="btn btn-success btn-flat btn-sm"  value="Update">
                             <i class="fa fa-pencil"></i>
                             Update
@@ -205,7 +189,7 @@
                           <input type="hidden" name="id" value="<?php echo $row[0]; ?>"/>
                         </form>
                           &nbsp;
-                        <form action="HR_Team2.php?id=<?php echo $_GET['id'];?>" method="get">
+                        <form action="CM_Team2.php?id=<?php echo $_GET['id'];?>" method="get">
                           <button type="submit" class="btn btn-danger btn-flat btn-sm"  value="Delete">
                             <i class="fa fa-trash"></i>
                             Delete

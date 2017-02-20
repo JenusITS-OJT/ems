@@ -52,7 +52,7 @@ require ('_Connection.php');
             <li><a href="CM_Team.php">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-circle-o"></i>Team</a></li>
 
             <li><a href="#"><i class="fa fa-reorder"></i>Attendance/Leave</a></li>
-            <li><a href="CM_Holiday.php">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-circle-o"></i>Holiday</a></li>
+            <li><a href="Holiday.php">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-circle-o"></i>Holiday</a></li>
             <li><a href="Leave.php">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-circle-o"></i>Leave Type</a></li>
 
 

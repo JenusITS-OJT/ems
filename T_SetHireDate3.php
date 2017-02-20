@@ -42,12 +42,12 @@
       <section class="content-header">
         <h1>
           Employee Management System
-          <small>| Hired Date</small>
+          <small>| Set Credentials</small>
         </h1>
         <ol class="breadcrumb">
           <li><a href="Dashboard.php"><i class="fa fa-dashboard"></i> Home</a></li>
           <li><a href="#"><i class="fa fa-tasks"></i>Transaction</a></li>
-          <li class="active">Hired Date</li>
+          <li class="active">Set Credentials</li>
         </ol>
       </section>
       <br>
@@ -55,13 +55,14 @@
       <section class="content">
       <!-- SELECT2 EXAMPLE -->
 
-    <div class="alert alert-success alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <h4><i class="icon fa fa-check"></i> Registration Success!</h4>
-                Employee's credentials has been set. To view employee's list, click <a href= "T_ViewEmployeeList.php"><b>Here</b></a>
-    </div>
+        <div class="alert alert-success alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <h4><i class="icon fa fa-check"></i> Registration Success!</h4>
+          Employee's credentials has been set. To view employee's list, click
+          <a href= "T_ViewEmployeeList.php"><b>Here</b></a>
+        </div>
 
-          <div class="box box-warning">
+        <div class="box box-warning">
             <div class="box-header">
               <h3 class="box-title">Employees' Data</h3>
             </div>
@@ -72,61 +73,57 @@
                     $result = mysqli_query($con, $sql);
 
                     ?>
-    <?php
+              <?php
                     $yes = mysqli_num_rows($result);
                     if($yes >= 1)
-                    {
+                    { 
                   ?>
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
-                <tr>
-                  <th>Jenus ID</th>
-                  <th>Employee Name</th>
-                  <th>Email</th>
-                  <th>Contact Number</th>
-                  <th>Action</th>
-                </tr>
+                  <tr>
+                    <th>Jenus ID</th>
+                    <th>Employee Name</th>
+                    <th>Email</th>
+                    <th>Contact Number</th>
+                    <th>Action</th>
+                  </tr>
                 </thead>
                 
                 <tbody>
                   <?php
                     while($row = mysqli_fetch_array($result)){
                       ?>
-                <tr>
-                  <?php $row[0] ?>
-                  <td><?php echo $row[1] ?></td>
-                  <td><?php echo $row[2] ?></td>
-                  <td><?php echo $row[3] ?></td>
-                  <td><?php echo $row[4] ?></td>
-                <td>
-                  <form action="T_SetHireDate2.php?id=<?php echo $_GET['user_id'];?>" method="get">
-                    <button type="submit" class="btn btn-success btn-flat btn-sm"  value="Update">
-                      <i class="fa fa-pencil"></i>
-                      Set Credentials
-                    </button>
-                    <input type="hidden" name="id" value="<?php echo $row[0]; ?>"/>
-                  </form>
-                </td>
-                </tr>
-                <?php }
-                }
-                else
-                {
-                  echo '<center><h1>No Latest Registration yet!</h1></center><br>';
-                }
-                 ?>
-              </tbody>
+                  <tr>
+                    <?php $row[0] ?>
+                    <td><?php echo $row[1] ?></td>
+                    <td><?php echo $row[2] ?></td>
+                    <td><?php echo $row[3] ?></td>
+                    <td><?php echo $row[4] ?></td>
+                    <td>
+                      <form action="T_SetHireDate2.php?id=<?php echo $_GET['user_id'];?>" method="get">
+                        <button type="submit" class="btn btn-success btn-flat btn-sm"  value="Update">
+                          <i class="fa fa-pencil"></i>
+                          Set Credentials
+                        </button>
+                        <input type="hidden" name="id" value="<?php echo $row[0]; ?>"/>
+                      </form>
+                    </td>
+                  </tr>
+                  <?php }
+                  }
+                  else
+                  {
+                    echo '<center><h1>No Latest Registration yet!</h1></center><br>';
+                  }
+                   ?>
+                </tbody>
               </table>
             </div>
             <!-- /.box-body -->
           </div>
 
-
-              <!-- /.box-body -->
-			  
-            </form>
-      </div>
-	  </section>
+          
+	    </section>
       <!-- /.box -->
 	</div>
 </div>

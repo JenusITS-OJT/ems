@@ -57,7 +57,7 @@ if (isset($_GET['id']))
       <!-- Main content -->  
       <section class="content">
       <!-- SELECT2 EXAMPLE -->
-      <div class="box box-warning">
+          <div class="box box-warning">
             <div class="box-header">
               <h3 class="box-title">Set Employee's Credentials</h3>
               <!-- <div class="box-tools pull-right">
@@ -66,7 +66,7 @@ if (isset($_GET['id']))
               </div> -->
             </div>
 
-            <form action="_T_SetHireDate2.php" method="get">
+            <form action="F_T_SetCredential.php" method="get">
               <div class="box-body">       
                   
                     <?php $sql="SELECT `user_id`, 
@@ -94,7 +94,7 @@ if (isset($_GET['id']))
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Email</label>
-                    <input type="text" class="form-control" id="city" name="city" placeholder="City" value = "<?php echo $email; ?>"readonly>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Email" value = "<?php echo $email; ?>" readonly>
                   </div>
                 </div>
 
@@ -102,7 +102,7 @@ if (isset($_GET['id']))
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Contact Number</label>
-                    <input type="text" class="form-control" id="city" name="city" placeholder="City" value = "<?php echo $contact; ?>"readonly>
+                    <input type="text" class="form-control" id="contact" name="contact" placeholder="Contact No" value = "<?php echo $contact; ?>"readonly>
                   </div>
                 </div>              
 
@@ -118,7 +118,7 @@ if (isset($_GET['id']))
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Bank Account</label>
-                    <input type="text" class="form-control" id=account name="account" placeholder="Bank Account" required>
+                    <input type="text" class="form-control" id="account" name="account" placeholder="Bank Account" required>
                   </div>
                 </div>
 
@@ -153,8 +153,8 @@ if (isset($_GET['id']))
                     <label for="exampleInputEmail1">Team</label>
                     <select class="form-control" id="team" name="team" required>
                       <?php $sql="SELECT `id`,
-                                    `address`
-                                    FROM `branch`;";
+                                    `team_name`
+                                    FROM `team`;";
                                     $result = mysqli_query($con, $sql);
                                     while($row = mysqli_fetch_array($result)){
                                   ?>
@@ -200,14 +200,8 @@ if (isset($_GET['id']))
                   <div class="form-group">
                     <label for="exampleInputEmail1">Pay Type</label>
                     <select class="form-control" id="paytype" name="paytype" required>
-                      <?php $sql="SELECT `id`,
-                                    `address`
-                                    FROM `branch`;";
-                                    $result = mysqli_query($con, $sql);
-                                    while($row = mysqli_fetch_array($result)){
-                                  ?>
-                      <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
-                      <?php } ?>
+                      <option value="Regular/Permanent">Monthly</option>
+                      <option value="Probationary">Semi-Monthly</option>                      
                     </select>
                   </div>
                 </div>
@@ -216,7 +210,7 @@ if (isset($_GET['id']))
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Employee Type</label>
-                    <select class="form-control" id="emptype" name="emptype" required>
+                    <select class="form-control" id="emptype" name="emptype" required>                      
                       <option value="Regular/Permanent">Regular/Permanent</option>
                       <option value="Probationary">Probationary</option>
                       <option value="Trainee/Intern">Trainee/Intern</option>
@@ -229,7 +223,7 @@ if (isset($_GET['id']))
                 <div class="box-footer" align="right">
                   <button type="submit" class="btn btn-primary">Submit</button>
                   &nbsp;&nbsp;&nbsp;
-                  <a href = "T_SetHireDate.php"<button type="reset" class="btn btn-default">Cancel</button></a>
+                  <a href = "T_SetCredential.php"<button type="reset" class="btn btn-default">Cancel</button></a>
                 </div>
               </div>
             </form>
@@ -273,7 +267,7 @@ if (isset($_GET['id']))
                     <td><?php echo $row[3] ?></td>
                     <td><?php echo $row[4] ?></td>
                     <td>
-                      <form action="T_SetHireDate2.php?id=<?php echo $_GET['user_id'];?>" method="get">
+                      <form action="T_SetCredential2.php?id=<?php echo $_GET['user_id'];?>" method="get">
                         <button type="submit" class="btn btn-success btn-flat btn-sm"  value="Update">
                           <i class="fa fa-pencil"></i>
                           Set Credentials
@@ -300,7 +294,6 @@ if (isset($_GET['id']))
 </div>
     <!-- ./wrapper -->
 
-<?php require('Form_CM_SetHireDate.php');?>
 <?php require('_Footer.php');?>
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->

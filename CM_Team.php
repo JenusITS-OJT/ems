@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<?php require('_Connection.php') ?>
+<?php require('_Connection.php');?>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,101 +38,182 @@
   <div class="wrapper">
   <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
+
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
           Employee Management System
-          <small>| Set Credentials</small>
+          <small>| Team</small>
         </h1>
         <ol class="breadcrumb">
           <li><a href="Dashboard.php"><i class="fa fa-dashboard"></i> Home</a></li>
-          <li><a href="#"><i class="fa fa-tasks"></i>Transaction</a></li>
-          <li class="active">Set Credentials</li>
+          <li><a href="#"><i class="fa fa-gear"></i>Configuration Management</a></li>
+          <li class="active">Team</li>
         </ol>
       </section>
       <br>
+
       <!-- Main content -->  
       <section class="content">
-      <!-- SELECT2 EXAMPLE -->
 
-        <div class="alert alert-danger alert-dismissible">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-          <h4><i class="icon fa fa-check"></i> Registration Unsuccessful!</h4>
-          Employee's credentials can't be set. an employee already possessed the ID. To view employee's further details, click
-          <a href= "T_ViewEmployeeList.php"><b>Here</b></a>
-        </div>
+        <!-- SELECT2 EXAMPLE -->
+        <div class="box box-warning">
 
-          <div class="box box-warning">
-            <div class="box-header">
-              <h3 class="box-title">Employees' Data</h3>
+          <div class="box-header with-border">
+            <h3 class="box-title">Add Team</h3>
+            <div class="box-tools pull-right">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+              <button type="button" class="btn btn-box-tool" data-widget="remove">
+                <i class="fa fa-remove"></i>
+              </button>
             </div>
-            <!-- /.box-header -->
-            <div class="box-body" style="overflow-x:auto;">
-              <?php $sql="SELECT `user_ID`, `id`, CONCAT(`First_Name`, ' ' ,`Middle_Name`, ' ' , `Last_Name`),
-                  `email`, `contact_no` FROM `employee` where `date_hired` is null or `date_hired` = '0000-00-00'";
-                    $result = mysqli_query($con, $sql);
-
-                    ?>
-              <?php
-                    $yes = mysqli_num_rows($result);
-                    if($yes >= 1)
-                    {
-                  ?>
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>Jenus ID</th>
-                  <th>Employee Name</th>
-                  <th>Email</th>
-                  <th>Contact Number</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-                
-                <tbody>
-                  <?php
-                    while($row = mysqli_fetch_array($result)){
-                      ?>
-                <tr>
-                  <?php $row[0] ?>
-                  <td><?php echo $row[1] ?></td>
-                  <td><?php echo $row[2] ?></td>
-                  <td><?php echo $row[3] ?></td>
-                  <td><?php echo $row[4] ?></td>
-                <td>
-                  <form action="T_SetHireDate2.php?id=<?php echo $_GET['user_id'];?>" method="get">
-                    <button type="submit" class="btn btn-success btn-flat btn-sm"  value="Update">
-                      <i class="fa fa-pencil"></i>
-                      Set Credentials
-                    </button>
-                    <input type="hidden" name="id" value="<?php echo $row[0]; ?>"/>
-                  </form>
-                </td>
-                </tr>
-                <?php }
-                }
-                else
-                {
-                  echo '<center><h1>No Latest Registration yet!</h1></center><br>';
-                }
-                 ?>
-              </tbody>
-              </table>
-            </div>
-            <!-- /.box-body -->
           </div>
 
-      </section>
-      <!-- /.box -->
-  </div>
-</div>
-    <!-- ./wrapper -->
 
-<?php require('Form_CM_SetHireDate.php');?>
+          <form action="F_CM_Team.php" method="get">
+            <div class="box-body">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Team Name</label>
+                  <input type="text" class="form-control" id="teamname" name="teamname" placeholder="Team Name" required/>
+                </div>
+              </div>                        
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Department</label>
+                  <select class="form-control" id="department" name="department" placeholder="Department" required>
+                    <?php $sql="SELECT
+                                    d.`ID`, 
+                                    d.`Dept_Name`
+                                    FROM `department` as d
+                                    WHERE d.`Status` = 1 order by d.`Dept_Name`;";
+                                    $result = mysqli_query($con, $sql);
+                                    while($row = mysqli_fetch_array($result)){
+                                  ?>
+                      <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
+                      <?php } ?>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Shift</label>
+                  <select class="form-control" id="shift" name="shift" placeholder="Shift" required>
+                    <option value=0> Day Shift </option>
+                    <option value=1> Night Shift </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Status</label>
+                  <select class="form-control" id="status" name="status" placeholder="Status" required>
+                    <option value=0> Active </option>
+                    <option value=1> Inactive </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="box-footer" align="right">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                &nbsp;&nbsp;&nbsp;
+                <button type="reset" class="btn btn-default">Clear Fields</button>
+              </div>
+            </div>
+          </form>
+
+        </div>
+
+        <div class="box box-warning">
+          <div class="box-header">
+            <h3 class="box-title">Team</h3>
+          </div>
+          <!-- /.box-header -->
+
+          <div class="box-body" style="overflow-x:auto;">
+            <table id="team" class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>Team Name</th>
+                  <th>Department</th>
+                  <th>Shift</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+                <?php $sql="SELECT 
+                          t.`id`, 
+                          t.`Team_Name`,
+                          d.`Dept_Name`,
+                          t.`Shift`, 
+                          t.`Status`
+                          FROM `team` as t 
+                          INNER JOIN `department` AS d 
+                          ON d.`ID` = t.`Dept_ID`";
+                  $result = mysqli_query($con, $sql);
+                  while($row = mysqli_fetch_array($result)){
+                ?> 
+              <tbody>
+                <tr>
+                    <?php $id=$row[0]; ?> 
+                    <td><?php echo $row[1] ?></td>
+                    <td><?php echo $row[2] ?></td>
+                    <td><?php
+                          $shift= $row[3];
+                          if ($shift == 0)
+                            { echo 'Day Shift';}
+                          else 
+                            { echo 'Night Shift';}
+                        ?></td>
+                    <td><?php
+                          $status= $row[4];
+                          if ($status == 0 )
+                            { echo 'Active';}
+                          else 
+                            { echo 'Inactive';}
+                        ?></td>
+                    <td>
+                    <div class="btn-group">
+
+                      <form action="CM_Team1.php?id=<?php echo $_GET['id'];?>" method="get">
+                          <button type="submit" class="btn btn-success btn-flat btn-sm"  value="Update">
+                            <i class="fa fa-pencil"></i>
+                            Update
+                          </button>
+                          <input type="hidden" name="id" value="<?php echo $row[0]; ?>"/>
+                        </form>
+                          &nbsp;
+                        <form action="CM_Team2.php?id=<?php echo $_GET['id'];?>" method="get">
+                          <button type="submit" class="btn btn-danger btn-flat btn-sm"  value="Delete">
+                            <i class="fa fa-trash"></i>
+                            Delete
+                          </button>
+                          <input type="hidden" name="id" value="<?php echo $row[0]; ?>"/>
+                        </form>
+
+                    </div>
+                  </td>
+                </tr>
+                <?php } ?>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.box-body -->
+        </div>
+      </section>
+    <!-- /.box -->
+    </div> 
+  <!-- ./wrapper -->
+    
 <?php require('_Footer.php');?>
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
+    <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
 

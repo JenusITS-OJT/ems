@@ -73,40 +73,19 @@
           </div>
 
 
-          <form action="_T_Team.php" method="get">
-
-              <?php $sql="SELECT 
-                  t.`id`, 
-                  t.`Team_Name`, 
-                  t.`shift`, 
-                  t.`status`, 
-                  d.`Dept_Name` 
-                  FROM `team` AS t 
-                  INNER JOIN `department` AS d 
-                  ON d.`ID` = t.`Dept_ID`";
-                  $result = mysqli_query($con, $sql);
-                  while($row = mysqli_fetch_array($result)){
-                        $id = $row[0];
-                        $teamname = $row[1];
-                        $department = $row[2];
-                        $shift = $row[3];
-                        $status = $row[4];
-                      }
-        ?>
-
+          <form action="F_CM_Team.php" method="get">
             <div class="box-body">
-              <div class="col-md-12">
+              <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Team Name</label>
-                  <textarea class="form-control" id="teamname" name="teamname" placeholder="Team Name" value="<?php echo $teamname; ?>" required/></textarea>
+                  <input type="text" class="form-control" id="teamname" name="teamname" placeholder="Team Name" required/>
                 </div>
-              </div>
-                        
+              </div>                        
 
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Department</label>
-                  <select class="form-control" id="department" name="department" placeholder="Department" value="<?php echo $department; ?>" required>
+                  <select class="form-control" id="department" name="department" placeholder="Department" required>
                     <?php $sql="SELECT
                                     d.`ID`, 
                                     d.`Dept_Name`
@@ -115,7 +94,7 @@
                                     $result = mysqli_query($con, $sql);
                                     while($row = mysqli_fetch_array($result)){
                                   ?>
-                      <option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
+                      <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
                       <?php } ?>
                   </select>
                 </div>
@@ -124,14 +103,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Shift</label>
-                  <?php
-                        if ($row[3]==0)
-                          $shift = 'DayShift';
-                        else
-                          $shift = 'NightShift';
-                      ?>
-                  <select class="form-control" id="shift" name="shift" placeholder="Shift" value="<?php echo $shift; ?>" required>
-                    <option>Select Shift....</option>
+                  <select class="form-control" id="shift" name="shift" placeholder="Shift" required>
                     <option value=0> Day Shift </option>
                     <option value=1> Night Shift </option>
                   </select>
@@ -141,18 +113,9 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Status</label>
-                  <?php
-                        if ($row[4]==0)
-                          $status = 'Active';
-                        else
-                          $status = 'Inactive';
-                        $result = mysqli_query($con, $sql);
-
-                      ?>
-                  <select class="form-control" id="status" name="status" placeholder="Status" value="<?php echo $status; ?>" required>
-                       <option>Select Status....</option>
+                  <select class="form-control" id="status" name="status" placeholder="Status" required>
                         <option value=0> Active </option>
-                        <option value=1> Inactive </option>                  
+                        <option value=1> Inactive </option>
                   </select>
                 </div>
               </div>
@@ -174,18 +137,17 @@
           <!-- /.box-header -->
 
           <div class="box-body" style="overflow-x:auto;">
-            <table id="Team" class="table table-bordered table-striped">
+            <table id="team" class="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th>Team ID</th>
                   <th>Team Name</th>
                   <th>Department</th>
                   <th>Shift</th>
-                  <th>Status </th>
+                  <th>Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
-              <?php $sql="SELECT 
+                <?php $sql="SELECT 
                           t.`id`, 
                           t.`Team_Name`,
                           d.`Dept_Name`,
@@ -199,28 +161,27 @@
                 ?> 
               <tbody>
                 <tr>
-                  <?php $id=$row[0]; ?>
-                  <td><?php echo $row[0] ?></td>
-                  <td><?php echo $row[1] ?></td>
-                  <td><?php echo $row[2] ?></td>
-                  <td><?php
+                    <?php $id=$row[0]; ?> 
+                    <td><?php echo $row[1] ?></td>
+                    <td><?php echo $row[2] ?></td>
+                    <td><?php
                           $shift= $row[3];
-                          if ($shift == '1')
+                          if ($shift == 0)
                             { echo 'Day Shift';}
                           else 
                             { echo 'Night Shift';}
                         ?></td>
-                  <td><?php
-                    $status= $row[4];
-                    if ($status == '0' )
-                      { echo 'Active';}
-                    else 
-                      { echo 'Inactive';}
-                  ?></td>
-                  <td>
+                    <td><?php
+                          $status= $row[4];
+                          if ($status == 0 )
+                            { echo 'Active';}
+                          else 
+                            { echo 'Inactive';}
+                        ?></td>
+                    <td>
                     <div class="btn-group">
 
-                      <form action="HR_Team1.php?id=<?php echo $_GET['id'];?>" method="get">
+                      <form action="CM_Team1.php?id=<?php echo $_GET['id'];?>" method="get">
                           <button type="submit" class="btn btn-success btn-flat btn-sm"  value="Update">
                             <i class="fa fa-pencil"></i>
                             Update
@@ -228,13 +189,14 @@
                           <input type="hidden" name="id" value="<?php echo $row[0]; ?>"/>
                         </form>
                           &nbsp;
-                        <form action="HR_Team2.php?id=<?php echo $_GET['id'];?>" method="get">
+                        <form action="CM_Team2.php?id=<?php echo $_GET['id'];?>" method="get">
                           <button type="submit" class="btn btn-danger btn-flat btn-sm"  value="Delete">
                             <i class="fa fa-trash"></i>
                             Delete
                           </button>
                           <input type="hidden" name="id" value="<?php echo $row[0]; ?>"/>
                         </form>
+
                     </div>
                   </td>
                 </tr>

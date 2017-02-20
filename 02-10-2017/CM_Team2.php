@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
-<?php require('_Connection.php') ?>
+<?php require('_Connection.php');
+if (isset($_GET['id']))
+  $id = $_GET['id'];
+else
+   header("Location: CM_Team.php");
+?>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,107 +40,176 @@
 <body class="hold-transition sidebar-mini">
 <?php require('_Header.php');?>
 <?php require('_Sidebar.php');?>
-  <div class="wrapper">
+<div class="wrapper">
   <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
-      <section class="content-header">
-        <h1>
-          Employee Management System
-          <small>| Set Credentials</small>
-        </h1>
-        <ol class="breadcrumb">
-          <li><a href="Dashboard.php"><i class="fa fa-dashboard"></i> Home</a></li>
-          <li><a href="#"><i class="fa fa-tasks"></i>Transaction</a></li>
-          <li class="active">Set Credentials</li>
-        </ol>
-      </section>
-      <br>
-      <!-- Main content -->  
-      <section class="content">
-      <!-- SELECT2 EXAMPLE -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Employee Management System
+        <small>| Team</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="Dashboard.php"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#"><i class="fa fa-gear"></i>Configuration Management</a></li>
+        <li class="active">Team</li>
+      </ol>
+    </section>
+    <br>
+    <!-- Main content -->  
+    <section class="content">
 
-        <div class="alert alert-danger alert-dismissible">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-          <h4><i class="icon fa fa-check"></i> Registration Unsuccessful!</h4>
-          Employee's credentials can't be set. an employee already possessed the ID. To view employee's further details, click
-          <a href= "T_ViewEmployeeList.php"><b>Here</b></a>
-        </div>
-
-          <div class="box box-warning">
-            <div class="box-header">
-              <h3 class="box-title">Employees' Data</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body" style="overflow-x:auto;">
-              <?php $sql="SELECT `user_ID`, `id`, CONCAT(`First_Name`, ' ' ,`Middle_Name`, ' ' , `Last_Name`),
-                  `email`, `contact_no` FROM `employee` where `date_hired` is null or `date_hired` = '0000-00-00'";
-                    $result = mysqli_query($con, $sql);
-
-                    ?>
-              <?php
-                    $yes = mysqli_num_rows($result);
-                    if($yes >= 1)
-                    {
-                  ?>
-              <table id="example1" class="table table-bordered table-striped">
+      <form action="F_CM_Team.php" method="get">
+        <div class="box box-warning">
+          <div class="box-header">
+            <h3 class="box-title">Delete Record?</h3>
+          </div>
+          <div class="box-body" style="overflow-x:auto;">
+            <h4>Do you want to delete the record below?</h4>
+            <small>You will not be able to retrieve this anymore.</small>
+            <br/>
+            <br/>
+            <table id="team" class="table table-bordered table-striped">
+                <?php $sql="SELECT 
+                          t.`id`, 
+                          t.`Team_Name`, 
+                          t.`Shift`, 
+                          t.`Status`, 
+                          d.`Dept_Name` 
+                          FROM `team` as t 
+                          INNER JOIN `department` AS d 
+                          ON d.`ID` = t.`Dept_ID`
+                          WHERE t.`id` = '$id'";
+                  $result = mysqli_query($con, $sql);
+                  while($row = mysqli_fetch_array($result)){
+                        $id = $row[0];
+                        $teamname = $row[1];
+                        $department = $row[4];
+                        $shift = $row[2];
+                        $status = $row[3];
+                  }
+                ?>
                 <thead>
+                  <tr>
+                    <th>Team Name</th>
+                    <th>Department</th>
+                    <th>Shift</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><?php echo $teamname ?></td>
+                    <td><?php echo $department ?></td>
+                    <td><?php
+                          if ($shift == 0)
+                            { echo 'Day Shift';}
+                          else 
+                            { echo 'Night Shift';}
+                        ?>
+                    </td>
+                    <td><?php
+                          if ($status == 0 )
+                            { echo 'Active';}
+                          else 
+                            { echo 'Inactive';}
+                        ?>
+                    </td>
+                  </tr>                   
+                </tbody>
+            </table>
+
+          </div>
+          <input type="hidden" name="id" value="<?php echo $id; ?>"/>
+          <div class="box-footer" align="right">
+            <button type="submit" class="btn btn-danger">Delete Record</button>
+            &nbsp;&nbsp;&nbsp;
+            <a href="CM_Team.php"><button type="button" class="btn btn-default">Cancel</button></a>
+          </div>
+        </div>
+      </form>
+
+        <div class="box box-warning">
+          <div class="box-header">
+            <h3 class="box-title">Team</h3>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body" style="overflow-x:auto;">
+            <table id="team" class="table table-bordered table-striped">
+              <thead>
                 <tr>
-                  <th>Jenus ID</th>
-                  <th>Employee Name</th>
-                  <th>Email</th>
-                  <th>Contact Number</th>
+                  <th>Team Name</th>
+                  <th>Department</th>
+                  <th>Shift</th>
+                  <th>Status</th>
                   <th>Action</th>
                 </tr>
-                </thead>
-                
-                <tbody>
-                  <?php
-                    while($row = mysqli_fetch_array($result)){
-                      ?>
+              </thead>
+                <?php $sql="SELECT 
+                          t.`id`, 
+                          t.`Team_Name`,
+                          d.`Dept_Name`,
+                          t.`Shift`, 
+                          t.`Status`
+                          FROM `team` as t 
+                          INNER JOIN `department` AS d 
+                          ON d.`ID` = t.`Dept_ID`";
+                  $result = mysqli_query($con, $sql);
+                  while($row = mysqli_fetch_array($result)){
+                ?> 
+              <tbody>
                 <tr>
-                  <?php $row[0] ?>
-                  <td><?php echo $row[1] ?></td>
-                  <td><?php echo $row[2] ?></td>
-                  <td><?php echo $row[3] ?></td>
-                  <td><?php echo $row[4] ?></td>
-                <td>
-                  <form action="T_SetHireDate2.php?id=<?php echo $_GET['user_id'];?>" method="get">
-                    <button type="submit" class="btn btn-success btn-flat btn-sm"  value="Update">
-                      <i class="fa fa-pencil"></i>
-                      Set Credentials
-                    </button>
-                    <input type="hidden" name="id" value="<?php echo $row[0]; ?>"/>
-                  </form>
-                </td>
+                    <?php $id=$row[0]; ?> 
+                    <td><?php echo $row[1] ?></td>
+                    <td><?php echo $row[2] ?></td>
+                    <td><?php
+                          $shift= $row[3];
+                          if ($shift == 0)
+                            { echo 'Day Shift';}
+                          else 
+                            { echo 'Night Shift';}
+                        ?></td>
+                    <td><?php
+                          $status= $row[4];
+                          if ($status == 0 )
+                            { echo 'Active';}
+                          else 
+                            { echo 'Inactive';}
+                        ?></td>
+                    <td>
+                    <div class="btn-group">
+
+                      <form action="CM_Team1.php?id=<?php echo $_GET['id'];?>" method="get">
+                          <button type="submit" class="btn btn-success btn-flat btn-sm"  value="Update">
+                            <i class="fa fa-pencil"></i>
+                            Update
+                          </button>
+                          <input type="hidden" name="id" value="<?php echo $row[0]; ?>"/>
+                        </form>
+                          &nbsp;
+                        <form action="CM_Team2.php?id=<?php echo $_GET['id'];?>" method="get">
+                          <button type="submit" class="btn btn-danger btn-flat btn-sm"  value="Delete">
+                            <i class="fa fa-trash"></i>
+                            Delete
+                          </button>
+                          <input type="hidden" name="id" value="<?php echo $row[0]; ?>"/>
+                        </form>
+
+                    </div>
+                  </td>
                 </tr>
-                <?php }
-                }
-                else
-                {
-                  echo '<center><h1>No Latest Registration yet!</h1></center><br>';
-                }
-                 ?>
+                <?php } ?>
               </tbody>
-              </table>
-            </div>
-            <!-- /.box-body -->
+            </table>
           </div>
+        </div>        
+      </div>
+    </section>
 
-      </section>
-      <!-- /.box -->
-  </div>
-</div>
+  </div> 
     <!-- ./wrapper -->
-
-<?php require('Form_CM_SetHireDate.php');?>
+    
 <?php require('_Footer.php');?>
-  <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
-</div>
-<!-- ./wrapper -->
-
 <!-- jQuery 2.2.3 -->
 <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- jQuery UI 1.11.4 -->

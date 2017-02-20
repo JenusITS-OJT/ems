@@ -100,7 +100,7 @@
                   <td><?php echo $row[3] ?></td>
                   <td><?php echo $row[4] ?></td>
                 <td>
-                  <form action="T_SetHireDate2.php?id=<?php echo $_GET['user_id'];?>" method="get">
+                  <form action="T_SetCredential2.php?id=<?php echo $_GET['user_id'];?>" method="get">
                     <button type="submit" class="btn btn-success btn-flat btn-sm"  value="Update">
                       <i class="fa fa-pencil"></i>
                       Set Credentials
@@ -128,7 +128,6 @@
 </div>
     <!-- ./wrapper -->
 
-<?php require('Form_CM_SetHireDate.php');?>
 <?php require('_Footer.php');?>
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->

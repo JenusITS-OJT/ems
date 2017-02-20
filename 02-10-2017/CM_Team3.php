@@ -1,16 +1,11 @@
-
 <!DOCTYPE html>
 <html>
-<?php require('_Connection.php');
-if (isset($_GET['id']))
-  $id = $_GET['id'];
-?>
+<?php require('_Connection.php');?>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel='shortcut icon' type='image/x-icon' href='logo.png'/>
   <title>Jenus ITS</title>
-
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -42,11 +37,8 @@ if (isset($_GET['id']))
 <?php require('_Sidebar.php');?>
   <div class="wrapper">
   <!-- Content Wrapper. Contains page content -->
-
-
-<div class="wrapper">
-  <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
+
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
@@ -60,84 +52,94 @@ if (isset($_GET['id']))
         </ol>
       </section>
       <br>
+
       <!-- Main content -->  
       <section class="content">
+      <?php require('Successful.php');?>
 
-      <form action="_T_Team2.php" method="get">
+        <!-- SELECT2 EXAMPLE -->
         <div class="box box-warning">
-          <div class="box-header">
-            <h3 class="box-title">Delete Record?</h3>
+
+          <div class="box-header with-border">
+            <h3 class="box-title">Add Team</h3>
+            <div class="box-tools pull-right">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+              <button type="button" class="btn btn-box-tool" data-widget="remove">
+                <i class="fa fa-remove"></i>
+              </button>
+            </div>
           </div>
-          <div class="box-header">
-            <div class="box-body" style="overflow-x:auto;">
-            <h4>Do you want to delete the record below?</h4><small>You will not be able to retrieve this anymore.</small>
-            <br/><br/>
 
 
-            <table id="team" class="table table-bordered table-striped">
-              <?php $sql="SELECT 
-                          t.`id`, 
-                          t.`Team_Name`, 
-                          t.`Shift`, 
-                          t.`Status`, 
-                          d.`Dept_Name` 
-                          FROM `team` as t 
-                          INNER JOIN `department` AS d 
-                          ON d.`ID` = t.`Dept_ID`
-                          WHERE t.`id` = '$id'";
-                  $result = mysqli_query($con, $sql);
-                  while($row = mysqli_fetch_array($result)){
-                        $id = $row[0];
-                        $teamname = $row[1];
-                        $department = $row[2];
-                        $shift = $row[3];
-                        $status = $row[4];
-                  }
-              ?>
-              <thead>
-                <tr>
-                  <th>Team ID</th>
-                  <th>Team Name</th>
-                  <th>Department</th>
-                  <th>Shift</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><?php echo $id ?></td>
-                  <td><?php echo $teamname ?></td>
-                  <td><?php echo $department ?></td>
-                  <td><?php echo $shift ?></td>
-                  <td><?php echo $status ?></td>
-                </tr>                   
-              </tfoot>
-            </table>
+          <form action="F_CM_Team.php" method="get">
+            <div class="box-body">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Team Name</label>
+                  <input type="text" class="form-control" id="teamname" name="teamname" placeholder="Team Name" required/>
+                </div>
+              </div>                        
 
-          </div>
-          </div>
-            <input type="hidden" name="id" value="<?php echo $id; ?>"/>
-          <div class="box-footer" align="right">
-                <button type="submit" class="btn btn-warning">Delete Record</button>
-
-    </form>
-                &nbsp;&nbsp;&nbsp;
-                <a href="HR_Team.php"><button type="button" class="btn btn-default">Cancel</button></a>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Department</label>
+                  <select class="form-control" id="department" name="department" placeholder="Department" required>
+                    <?php $sql="SELECT
+                                    d.`ID`, 
+                                    d.`Dept_Name`
+                                    FROM `department` as d
+                                    WHERE d.`Status` = 1 order by d.`Dept_Name`;";
+                                    $result = mysqli_query($con, $sql);
+                                    while($row = mysqli_fetch_array($result)){
+                                  ?>
+                      <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
+                      <?php } ?>
+                  </select>
+                </div>
               </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Shift</label>
+                  <select class="form-control" id="shift" name="shift" placeholder="Shift" required>
+                    <option value=0> Day Shift </option>
+                    <option value=1> Night Shift </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Status</label>
+                  <select class="form-control" id="status" name="status" placeholder="Status" required>
+                        <option value=0> Active </option>
+                        <option value=1> Inactive </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="box-footer" align="right">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                &nbsp;&nbsp;&nbsp;
+                <button type="reset" class="btn btn-default">Clear Fields</button>
+              </div>
+            </div>
+          </form>
+
         </div>
 
-          <div class="box box-warning">
+        <div class="box box-warning">
           <div class="box-header">
             <h3 class="box-title">Team</h3>
           </div>
           <!-- /.box-header -->
 
-
-          <div class="box-body" style="overflow-x:auto;"> 
+          <div class="box-body" style="overflow-x:auto;">
             <table id="team" class="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th>Team ID</th>
                   <th>Team Name</th>
                   <th>Department</th>
                   <th>Shift</th>
@@ -145,7 +147,7 @@ if (isset($_GET['id']))
                   <th>Action</th>
                 </tr>
               </thead>
-              <?php $sql="SELECT 
+                <?php $sql="SELECT 
                           t.`id`, 
                           t.`Team_Name`,
                           d.`Dept_Name`,
@@ -159,27 +161,27 @@ if (isset($_GET['id']))
                 ?> 
               <tbody>
                 <tr>
-                  <?php $id=$row[0]; ?>
-                  <td><?php echo $row[0] ?></td>
-                  <td><?php echo $row[1] ?></td>
-                  <td><?php echo $row[2] ?></td>
-                  <td><?php
+                    <?php $id=$row[0]; ?> 
+                    <td><?php echo $row[1] ?></td>
+                    <td><?php echo $row[2] ?></td>
+                    <td><?php
                           $shift= $row[3];
                           if ($shift == 0)
                             { echo 'Day Shift';}
                           else 
                             { echo 'Night Shift';}
                         ?></td>
-                  <td><?php
-                    $status= $row[4];
-                    if ($status == 0 )
-                      { echo 'Active';}
-                    else 
-                      { echo 'Inactive';}
-                  ?></td>
-                  <td>
+                    <td><?php
+                          $status= $row[4];
+                          if ($status == 0 )
+                            { echo 'Active';}
+                          else 
+                            { echo 'Inactive';}
+                        ?></td>
+                    <td>
                     <div class="btn-group">
-                        <form action="HR_Team3.php?id=<?php echo $_GET['id'];?>" method="get">
+
+                      <form action="CM_Team1.php?id=<?php echo $_GET['id'];?>" method="get">
                           <button type="submit" class="btn btn-success btn-flat btn-sm"  value="Update">
                             <i class="fa fa-pencil"></i>
                             Update
@@ -187,28 +189,34 @@ if (isset($_GET['id']))
                           <input type="hidden" name="id" value="<?php echo $row[0]; ?>"/>
                         </form>
                           &nbsp;
-                        <a href="HR_Team2.php?id=<?php echo $_GET['id'];?>" method="get">
-                          <button type="submit" class="btn btn-block btn-danger btn-flat btn-sm"  value="Delete">
+                        <form action="CM_Team2.php?id=<?php echo $_GET['id'];?>" method="get">
+                          <button type="submit" class="btn btn-danger btn-flat btn-sm"  value="Delete">
                             <i class="fa fa-trash"></i>
                             Delete
                           </button>
                           <input type="hidden" name="id" value="<?php echo $row[0]; ?>"/>
-                        </a>
+                        </form>
+
                     </div>
                   </td>
                 </tr>
-                <?php } ?>                    
-              </tfoot>
+                <?php } ?>
+              </tbody>
             </table>
-            </div>
-            <!-- /.box-body -->
           </div>
+          <!-- /.box-body -->
         </div>
-      </div>
       </section>
-    </div>
-  </div>
-
+    <!-- /.box -->
+    </div> 
+  <!-- ./wrapper -->
+    
+<?php require('_Footer.php');?>
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
 
 <!-- jQuery 2.2.3 -->
 <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>

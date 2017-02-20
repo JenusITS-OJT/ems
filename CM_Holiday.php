@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
-<?php require('_Connection.php');
-if (isset($_GET['id']))
-  $id = $_GET['id'];
-?>
+<?php require('_Connection.php') ?>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -45,99 +42,63 @@ if (isset($_GET['id']))
       <section class="content-header">
         <h1>
           Employee Management System
-          <small>| Set Credentials</small>
+          <small>| Holiday</small>
         </h1>
         <ol class="breadcrumb">
           <li><a href="Dashboard.php"><i class="fa fa-dashboard"></i> Home</a></li>
-          <li><a href="#"><i class="fa fa-tasks"></i>Transaction</a></li>
-          <li class="active">Set Credentials</li>
+          <li><a href="#"><i class="fa fa-gear"></i>Configuration Management</a></li>
+          <li>Holiday</li>
         </ol>
       </section>
       <br>
+
       <!-- Main content -->  
       <section class="content">
       <!-- SELECT2 EXAMPLE -->
-      <div class="box box-warning">
+          <div class="box box-warning">
+
             <div class="box-header">
-              <h3 class="box-title">Set Employee's Credentials</h3>
-              <!-- <div class="box-tools pull-right">
+              <h3 class="box-title">Add Holiday</h3>
+              <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-              </div> -->
+              </div>
             </div>
+            <!-- /.box-header -->
 
-            <form action="_T_SetHireDate2.php" method="get">
-              <div class="box-body">       
-                  
-                    <?php $sql="SELECT `user_id`, 
-                    CONCAT(`First_Name`, ' ' ,`Middle_Name`, ' ' , `Last_Name`), `email`, `contact_no`
-                                  FROM `employee` where `user_id` = $id";
-                                  $result = mysqli_query($con, $sql);
-                                  while($row = mysqli_fetch_array($result)){
-                                    $id = $row[0];
-                                    $name = $row[1];
-                                    $email = $row[2];
-                                    $contact = $row[3];
-                                  }
-                                ?>
+            <form action="_CM_JobTitle.php" method="get">
+              <div class="box-body">
 
-
-                <!-- Name -->
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Employee Name</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="<?php echo $name; ?>" readonly>
+                    <label for="exampleInputEmail1">Holiday</label>
+                    <input type="text" class="form-control" id="jobtitle" name="jobtitle" placeholder="Job Title" required>
                   </div>
                 </div>
 
-                <!-- Email -->
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Email</label>
-                    <input type="text" class="form-control" id="city" name="city" placeholder="City" value = "<?php echo $email; ?>"readonly>
+                    <label for="exampleInputEmail1">Job Code</label>
+                    <input type="text" class="form-control" id="jobcode" name="jobcode" placeholder="Job Code" required>
                   </div>
                 </div>
 
-                <!-- Contact No. -->
-                <div class="col-md-4">
+                <div class="col-md-12">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Contact Number</label>
-                    <input type="text" class="form-control" id="city" name="city" placeholder="City" value = "<?php echo $contact; ?>"readonly>
-                  </div>
-                </div>              
-
-                <!-- ID Number -->
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Set ID Number</label>
-                    <input type="text" class="form-control" id="empid" name="empid" placeholder="ID Number (e.g. 001, 002, ...)" required>
+                    <label for="exampleInputEmail1">Job Description</label>
+                    <input type="text" class="form-control" id="description" name="description" placeholder="Job Description" required>
                   </div>
                 </div>
 
-                <!-- Bank Account -->
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Bank Account</label>
-                    <input type="text" class="form-control" id=account name="account" placeholder="Bank Account" required>
-                  </div>
-                </div>
-
-                <!-- Basic Salary -->
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Basic Salary</label>
-                    <input type="text" class="form-control" id=basicpay name="basicpay" placeholder="Basic Pay" required>
-                  </div>
-                </div>
-
-                <!-- Job Position -->
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Job Position</label>
-                    <select class="form-control" id="pos" name="pos" required>
-                      <?php $sql="SELECT `id`,
-                                    `job_title`
-                                    FROM `job`;";
+                    <label for="exampleInputEmail1">Department</label>
+                    <select class="form-control" id="dept" name="dept" placeholder="Department" required>
+                      <?php $sql="SELECT
+                                    d.`ID`, 
+                                    d.`Dept_Name`
+                                    FROM `department` as d
+                                    WHERE d.`Status` = 1 order by d.`Dept_Name`;";
                                     $result = mysqli_query($con, $sql);
                                     while($row = mysqli_fetch_array($result)){
                                   ?>
@@ -147,160 +108,116 @@ if (isset($_GET['id']))
                   </div>
                 </div>
 
-                <!-- Team -->
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Team</label>
-                    <select class="form-control" id="team" name="team" required>
-                      <?php $sql="SELECT `id`,
-                                    `address`
-                                    FROM `branch`;";
-                                    $result = mysqli_query($con, $sql);
-                                    while($row = mysqli_fetch_array($result)){
-                                  ?>
-                      <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
-                      <?php } ?>
+                    <label for="exampleInputEmail1">Status</label>
+                    <select class="form-control" id="status" name="status" placeholder="Status" required>
+                            <?php $sql="SELECT
+                              s.`ID`, s.`Status_Name`
+                            FROM `status` as s where s.`id` = '1' or s.`id` = '8'";
+                              $result = mysqli_query($con, $sql);
+                              while($row = mysqli_fetch_array($result)){
+                            ?>
+                        <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
+                            <?php } ?>
                     </select>
                   </div>
                 </div>
-
-                <!-- Designation -->
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Designation</label>
-                    <select class="form-control" id="des" name="des" required>
-                      <?php $sql="SELECT `id`,
-                                    `address`
-                                    FROM `branch`;";
-                                    $result = mysqli_query($con, $sql);
-                                    while($row = mysqli_fetch_array($result)){
-                                  ?>
-                      <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
-                      <?php } ?>
-                    </select>
-                  </div>
-                </div>
-
-                <!-- Hire Date -->
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>Hire Date</label>
-                    <div class="input-group date">
-                      <div class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
-                      </div>
-                      <input type="date" class="form-control pull-right" id="datepicker" name="datepicker" required></input>
-                    </div>
-                    <!-- /.input group -->
-                  </div>
-                </div>
-
-                <!-- Pay Type -->
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Pay Type</label>
-                    <select class="form-control" id="paytype" name="paytype" required>
-                      <?php $sql="SELECT `id`,
-                                    `address`
-                                    FROM `branch`;";
-                                    $result = mysqli_query($con, $sql);
-                                    while($row = mysqli_fetch_array($result)){
-                                  ?>
-                      <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
-                      <?php } ?>
-                    </select>
-                  </div>
-                </div>
-
-                <!-- Employee Type -->
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Employee Type</label>
-                    <select class="form-control" id="emptype" name="emptype" required>
-                      <option value="Regular/Permanent">Regular/Permanent</option>
-                      <option value="Probationary">Probationary</option>
-                      <option value="Trainee/Intern">Trainee/Intern</option>
-                    </select>
-                  </div>
-                </div>
-
-                <input type="hidden" name="id" value="<?php echo $id; ?>"/>
 
                 <div class="box-footer" align="right">
                   <button type="submit" class="btn btn-primary">Submit</button>
                   &nbsp;&nbsp;&nbsp;
-                  <a href = "T_SetHireDate.php"<button type="reset" class="btn btn-default">Cancel</button></a>
+                  <button type="reset" class="btn btn-default">Clear Fields</button>
                 </div>
+
               </div>
             </form>
+
           </div>
 
           <div class="box box-warning">
             <div class="box-header">
-              <h3 class="box-title">Employees' Data</h3>
+              <h3 class="box-title">Job Title</h3>
             </div>
             <!-- /.box-header -->
-            <div class="box-body" style="overflow-x:auto;">
-              <?php $sql="SELECT `user_ID`, `id`, CONCAT(`First_Name`, ' ' ,`Middle_Name`, ' ' , `Last_Name`),
-                  `email`, `contact_no` FROM `employee` where `date_hired` is null or `date_hired` = '0000-00-00'";
-                    $result = mysqli_query($con, $sql);
 
-                    ?>
-              <?php
-                    $yes = mysqli_num_rows($result);
-                    if($yes >= 1)
-                    { 
-                  ?>
-              <table id="example1" class="table table-bordered table-striped">
+            <div class="box-body" style="overflow-x:auto;">
+              <table id="job_title" class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>Jenus ID</th>
-                    <th>Employee Name</th>
-                    <th>Email</th>
-                    <th>Contact Number</th>
+                    <th>Job Title</th>
+                    <th>Job Code</th>
+                    <th>Job Description</th>
+                    <th>Department</th>
+                    <th>Status</th>
                     <th>Action</th>
                   </tr>
                 </thead>
-                
+                <?php $sql="SELECT 
+                            j.`id`,
+                            j.`Job_Title`,
+                            j.`Code`,
+                            j.`Description`,
+                            d.`Dept_Name`,
+                            j.`status`
+                            FROM `job` as j
+                            INNER JOIN `department` AS d
+                            ON d.`ID` = j.`Dept_ID`
+                            where j.`status` = '1'";
+                            $result = mysqli_query($con, $sql);
+                            while($row = mysqli_fetch_array($result)){
+                          ?> 
                 <tbody>
-                  <?php
-                    while($row = mysqli_fetch_array($result)){
-                      ?>
                   <tr>
-                    <?php $row[0] ?>
+                    <?php $id=$row[0]; ?>
                     <td><?php echo $row[1] ?></td>
                     <td><?php echo $row[2] ?></td>
                     <td><?php echo $row[3] ?></td>
                     <td><?php echo $row[4] ?></td>
+                    <td><?php
+                          $status = $row[5];
+                          if($status == '1')
+                          {
+                            echo 'Active';
+                          }
+                          else
+                          {
+                            echo 'Inactive';
+                          }
+                        ?></td>
                     <td>
-                      <form action="T_SetHireDate2.php?id=<?php echo $_GET['user_id'];?>" method="get">
-                        <button type="submit" class="btn btn-success btn-flat btn-sm"  value="Update">
-                          <i class="fa fa-pencil"></i>
-                          Set Credentials
-                        </button>
-                        <input type="hidden" name="id" value="<?php echo $row[0]; ?>"/>
-                      </form>
+                      <div class="btn-group">
+                        
+                        <form action="CM_JobTitle1.php?id=<?php echo $_GET['id'];?>" method="get">
+                          <button type="submit" class="btn btn-success btn-flat btn-sm"  value="Update">
+                            <i class="fa fa-pencil"></i>
+                            Update
+                          </button>
+                          <input type="hidden" name="id" value="<?php echo $row[0]; ?>"/>
+                        </form>
+                          &nbsp;
+                        <form action="CM_JobTitle2.php?id=<?php echo $_GET['id'];?>" method="get">
+                          <button type="submit" class="btn btn-danger btn-flat btn-sm"  value="Delete">
+                            <i class="fa fa-trash"></i>
+                            Delete
+                          </button>
+                          <input type="hidden" name="id" value="<?php echo $row[0]; ?>"/>
+                        </form>
+
+                     </div>
                     </td>
                   </tr>
-                  <?php }
-                  }
-                  else
-                  {
-                    echo '<center><h1>No Latest Registration yet!</h1></center><br>';
-                  }
-                   ?>
+                  <?php } ?>
                 </tbody>
               </table>
             </div>
             <!-- /.box-body -->
           </div>
-	  </section>
+        </section>
       <!-- /.box -->
-	</div>
-</div>
+      </div>
     <!-- ./wrapper -->
 
-<?php require('Form_CM_SetHireDate.php');?>
 <?php require('_Footer.php');?>
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
@@ -384,7 +301,7 @@ if (isset($_GET['id']))
           $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         }
     );
-	//Date picker
+  //Date picker
     $('#datepicker').datepicker({
       autoclose: true
     });
@@ -414,8 +331,8 @@ if (isset($_GET['id']))
     $(".timepicker").timepicker({
       showInputs: false
     });
-	
-	$("#example1").DataTable();
+  
+  $("#example1").DataTable();
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,
